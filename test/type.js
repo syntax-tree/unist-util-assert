@@ -1,26 +1,14 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module unist-util-assert
- * @fileoverview Test suite for `unist-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
-
-/* Dependencies. */
 var test = require('tape');
 var assert = require('..');
 
-/* Tests. */
 test('type', function (t) {
   t.throws(
     function () {
       assert([1, 5]);
     },
-    /^AssertionError: node should have a type: `\[ 1, 5 \]`$/,
+    /^AssertionError: node should have a type: `\[ 1, 5 ]`$/,
     'should throw if not given a `type` (#1)'
   );
 

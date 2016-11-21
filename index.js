@@ -1,15 +1,4 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module unist-util-assert
- * @fileoverview Assert `unist` nodes.
- */
-
 'use strict';
-
-/* eslint-env commonjs */
-/* eslint-disable no-useless-concat */
 
 /* Dependencies. */
 var assert = require('assert');
@@ -19,6 +8,7 @@ var object = require('x-is-object');
 var inspect;
 
 try {
+  // eslint-disable-next-line import/no-dynamic-require, no-useless-concat
   inspect = require('ut' + 'il').inspect;
 } catch (err) { /* Empty. */ }
 
@@ -36,14 +26,8 @@ var ID = '__unist__';
 /* List of specced properties. */
 var defined = ['type', 'value', 'children', 'position'];
 
-/**
- * Wrapper around `Node` which adds the current node
- * (and parent, if available), to the message.
- *
- * @param {Node} node - Node to checl.
- * @param {Node?} [parent] - Parent of `node`.
- * @throws {Error} - Prettified error.
- */
+/* Wrapper around `Node` which adds the current node
+ * (and parent, if available), to the message. */
 function wrap(fn) {
   return wrapped;
 
@@ -66,13 +50,7 @@ function wrap(fn) {
   }
 }
 
-/**
- * Assert.
- *
- * @param {Node} node - Value to assert.
- * @throws {Error} - If the given value doesn’t adhere to
- *   unist.
- */
+/* Assert. */
 function unist(node) {
   var type;
   var children;
@@ -114,15 +92,8 @@ function unist(node) {
   }
 }
 
-/**
- * Assert `value` (which lives at `key`) can be stringified
- * and re-parsed to the same (deep) value.
- *
- * @param {*} value - Value to assert.
- * @param {string} key - Property at which `value` lives.
- * @throws {Error} - If the given value doesn’t adhere to
- *   `Parent`.
- */
+/* Assert `value` (which lives at `key`) can be stringified
+ * and re-parsed to the same (deep) value. */
 function vanilla(key, value) {
   try {
     assert.deepEqual(value, JSON.parse(JSON.stringify(value)));
@@ -131,16 +102,9 @@ function vanilla(key, value) {
   }
 }
 
-/**
- * Stringify a value to inspect it.  Tries `JSON.stringify()`,
+/* Stringify a value to inspect it.  Tries `JSON.stringify()`,
  * and if that fails uses `String()` instead.  If `stringify()`
- * works, ``
- *
- * @param {*} value - Value to assert.
- * @param {string} key - Property at which `value` lives.
- * @throws {Error} - If the given value doesn’t adhere to
- *   `Parent`.
- */
+ * works. */
 function view(value) {
   try {
     /* eslint-disable no-else-return */
@@ -156,13 +120,7 @@ function view(value) {
   }
 }
 
-/**
- * Assert `node` is a parent node.
- *
- * @param {Node} node - Value to assert.
- * @throws {Error} - If the given value doesn’t adhere to
- *   `Parent`.
- */
+/* Assert `node` is a parent node. */
 function parent(node) {
   unist(node);
 
@@ -170,13 +128,7 @@ function parent(node) {
   assert.ok('children' in node, 'parent should have `children`');
 }
 
-/**
- * Assert `node` is a text node.
- *
- * @param {Node} node - Value to assert.
- * @throws {Error} - If the given value doesn’t adhere to
- *   `Text`.
- */
+/* Assert `node` is a text node. */
 function text(node) {
   unist(node);
 
@@ -184,14 +136,8 @@ function text(node) {
   assert.ok('value' in node, 'text should have `value`');
 }
 
-/**
- * Assert `node` is a Unist node, but neither parent nor
- * text.
- *
- * @param {Node} node - Value to assert.
- * @throws {Error} - If the given value doesn’t adhere to
- *   Unist, is a `Parent`, or a `Text`.
- */
+/* Assert `node` is a Unist node, but neither parent nor
+ * text. */
 function empty(node) {
   unist(node);
 
@@ -199,13 +145,7 @@ function empty(node) {
   assert.equal('children' in node, false, 'void should not have `children`');
 }
 
-/**
- * Assert `location` is a Unist Location.
- *
- * @param {Location} location - Location to assert.
- * @throws {Error} - If the given value doesn’t adhere to
- *   Unist Location.
- */
+/* Assert `location` is a Unist Location. */
 function location(location) {
   if (location != null) {
     assert.ok(object(location), '`position` should be an object');
@@ -215,13 +155,7 @@ function location(location) {
   }
 }
 
-/**
- * Assert `location` is a Unist Location.
- *
- * @param {Location} location - Location to assert.
- * @throws {Error} - If the given value doesn’t adhere to
- *   Unist Location.
- */
+/* Assert `location` is a Unist Location. */
 function position(position, name) {
   if (position != null) {
     assert.ok(object(position), '`' + name + '` should be an object');

@@ -1,18 +1,7 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module unist-util-assert
- * @fileoverview Test suite for `unist-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
+/* eslint-disable import/no-unassigned-import */
 
-/* Dependencies. */
-
-/* Tests. */
 require('./node');
 require('./type');
 require('./value');

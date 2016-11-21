@@ -35,7 +35,7 @@ test('assert.void()', function (t) {
     function () {
       assert.void({type: 'strong', children: []});
     },
-    /^AssertionError: void should not have `children`: `{ type: 'strong', children: \[\] }`$/,
+    /^AssertionError: void should not have `children`: `{ type: 'strong', children: \[] }`$/,
     'should throw if the given node has `children`'
   );
 

@@ -1,16 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module unist-util-assert
- * @fileoverview Test suite for `unist-util-assert`.
- */
-
 'use strict';
 
-/* eslint-env node */
-
-/* Dependencies. */
 var test = require('tape');
 var assert = require('..');
 
@@ -27,7 +16,7 @@ test('assert.text()', function (t) {
     function () {
       assert.text({type: 'strong', children: []});
     },
-    /^AssertionError: text should not have `children`: `{ type: 'strong', children: \[\] }`$/,
+    /^AssertionError: text should not have `children`: `{ type: 'strong', children: \[] }`$/,
     'should throw if the given node has `children`'
   );
 
