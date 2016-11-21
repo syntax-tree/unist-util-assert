@@ -1,12 +1,10 @@
 # unist-util-assert [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
 
-<!--lint disable heading-increment no-duplicate-headings-->
-
 Assert [Unist][] nodes.
 
 ## Installation
 
-[npm][npm-install]:
+[npm][]:
 
 ```bash
 npm install unist-util-assert
@@ -86,7 +84,7 @@ the node (and the parent, when given).
 
 [codecov]: https://codecov.io/github/wooorm/unist-util-assert
 
-[npm-install]: https://docs.npmjs.com/cli/install
+[npm]: https://docs.npmjs.com/cli/install
 
 [license]: LICENSE
 
