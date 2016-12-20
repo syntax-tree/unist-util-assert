@@ -9,8 +9,8 @@
     "util",
     "utility"
   ],
-  "repository": "https://github.com/wooorm/unist-util-assert",
-  "bugs": "https://github.com/wooorm/unist-util-assert/issues",
+  "repository": "https://github.com/syntax-tree/unist-util-assert",
+  "bugs": "https://github.com/syntax-tree/unist-util-assert/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"

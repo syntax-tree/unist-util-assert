@@ -76,13 +76,13 @@ the node (and the parent, when given).
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/unist-util-assert.svg
+[travis-badge]: https://img.shields.io/travis/syntax-tree/unist-util-assert.svg
 
-[travis]: https://travis-ci.org/wooorm/unist-util-assert
+[travis]: https://travis-ci.org/syntax-tree/unist-util-assert
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/unist-util-assert.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/syntax-tree/unist-util-assert.svg
 
-[codecov]: https://codecov.io/github/wooorm/unist-util-assert
+[codecov]: https://codecov.io/github/syntax-tree/unist-util-assert
 
 [npm]: https://docs.npmjs.com/cli/install
 
@@ -90,10 +90,10 @@ the node (and the parent, when given).
 
 [author]: http://wooorm.com
 
-[unist]: https://github.com/wooorm/unist
+[unist]: https://github.com/syntax-tree/unist
 
-[parent]: https://github.com/wooorm/unist#parent
+[parent]: https://github.com/syntax-tree/unist#parent
 
-[text]: https://github.com/wooorm/unist#text
+[text]: https://github.com/syntax-tree/unist#text
 
-[mdast-util-assert]: https://github.com/wooorm/mdast-util-assert
+[mdast-util-assert]: https://github.com/syntax-tree/mdast-util-assert
