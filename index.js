@@ -13,7 +13,8 @@ try {
 } catch (err) { /* Empty. */ }
 
 /* Expose. */
-module.exports = exports = wrap(unist);
+exports = wrap(unist);
+module.exports = exports;
 
 exports.parent = wrap(parent);
 exports.text = wrap(text);
