@@ -70,6 +70,15 @@ Wraps a function (which is passed a node, and an optional parent node),
 so that any errors thrown inside it will contain information regarding
 the node (and the parent, when given).
 
+## Related
+
+*   [`mdast-util-assert`](https://github.com/syntax-tree/mdast-util-assert)
+    — Check [mdast](https://github.com/syntax-tree/mdast) nodes
+*   [`hast-util-assert`](https://github.com/syntax-tree/hast-util-assert)
+    — Check [hast](https://github.com/syntax-tree/hast) nodes
+*   [`nlcst-test`](https://github.com/syntax-tree/nlcst-test)
+    — Check [nlcst](https://github.com/syntax-tree/nlcst) nodes
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]
