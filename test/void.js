@@ -19,7 +19,7 @@ test('assert.void()', function (t) {
     function () {
       assert.void({});
     },
-    /^AssertionError: node should have a type: `{}`$/,
+    /node should have a type: `{}`$/,
     'should throw the same errors as `assert()`'
   );
 
@@ -27,7 +27,7 @@ test('assert.void()', function (t) {
     function () {
       assert.void({type: 'text', value: 'foo'});
     },
-    /^AssertionError: void should not have `value`: `{ type: 'text', value: 'foo' }`$/,
+    /void should not have `value`: `{ type: 'text', value: 'foo' }`$/,
     'should throw if the given node has a `value`'
   );
 
@@ -35,7 +35,7 @@ test('assert.void()', function (t) {
     function () {
       assert.void({type: 'strong', children: []});
     },
-    /^AssertionError: void should not have `children`: `{ type: 'strong', children: \[] }`$/,
+    /void should not have `children`: `{ type: 'strong', children: \[] }`$/,
     'should throw if the given node has `children`'
   );
 

@@ -8,7 +8,7 @@ test('position', function (t) {
     function () {
       assert({type: 'foo', position: 1});
     },
-    /^AssertionError: `position` should be an object: `{ type: 'foo', position: 1 }`$/,
+    /`position` should be an object: `{ type: 'foo', position: 1 }`$/,
     'should throw if given a non-object `position`'
   );
 
@@ -30,7 +30,7 @@ test('position', function (t) {
     function () {
       assert({type: 'foo', position: {start: 1}});
     },
-    /^AssertionError: `position.start` should be an object: `{ type: 'foo', position: { start: 1 } }`$/,
+    /`position.start` should be an object: `{ type: 'foo', position: { start: 1 } }`$/,
     'should throw if given a non-object `position.start`'
   );
 
@@ -52,7 +52,7 @@ test('position', function (t) {
     function () {
       assert({type: 'foo', position: {end: 1}});
     },
-    /^AssertionError: `position.end` should be an object: `{ type: 'foo', position: { end: 1 } }`$/,
+    /`position.end` should be an object: `{ type: 'foo', position: { end: 1 } }`$/,
     'should throw if given a non-object `position.end`'
   );
 
@@ -102,7 +102,7 @@ test('position', function (t) {
     function () {
       assert({type: 'foo', position: {start: {line: 0}}});
     },
-    /^AssertionError: `position.start.line` should be gte `1`: `{ type: 'foo', position: { start: { line: 0 } } }`$/,
+    /`position.start.line` should be gte `1`: `{ type: 'foo', position: { start: { line: 0 } } }`$/,
     'should throw if `position.start.line` is less than 1'
   );
 
@@ -110,7 +110,7 @@ test('position', function (t) {
     function () {
       assert({type: 'foo', position: {start: {column: 0}}});
     },
-    /^AssertionError: `position.start.column` should be gte `1`: `{ type: 'foo', position: { start: { column: 0 } } }`$/,
+    /`position.start.column` should be gte `1`: `{ type: 'foo', position: { start: { column: 0 } } }`$/,
     'should throw if `position.start.column` is less than 1'
   );
 
@@ -118,7 +118,7 @@ test('position', function (t) {
     function () {
       assert({type: 'foo', position: {end: {line: 0}}});
     },
-    /^AssertionError: `position.end.line` should be gte `1`: `{ type: 'foo', position: { end: { line: 0 } } }`$/,
+    /`position.end.line` should be gte `1`: `{ type: 'foo', position: { end: { line: 0 } } }`$/,
     'should throw if `position.end.line` is less than 1'
   );
 
@@ -126,7 +126,7 @@ test('position', function (t) {
     function () {
       assert({type: 'foo', position: {end: {column: 0}}});
     },
-  /^AssertionError: `position.end.column` should be gte `1`: `{ type: 'foo', position: { end: { column: 0 } } }`$/,
+    /`position.end.column` should be gte `1`: `{ type: 'foo', position: { end: { column: 0 } } }`$/,
     'should throw if `position.end.column` is less than 1'
   );
 

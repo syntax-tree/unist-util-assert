@@ -8,7 +8,7 @@ test('assert.text()', function (t) {
     function () {
       assert.text({});
     },
-    /^AssertionError: node should have a type: `{}`$/,
+    /node should have a type: `{}`$/,
     'should throw the same errors as `assert()`'
   );
 
@@ -16,7 +16,7 @@ test('assert.text()', function (t) {
     function () {
       assert.text({type: 'strong', children: []});
     },
-    /^AssertionError: text should not have `children`: `{ type: 'strong', children: \[] }`$/,
+    /text should not have `children`: `{ type: 'strong', children: \[] }`$/,
     'should throw if the given node has `children`'
   );
 
@@ -24,7 +24,7 @@ test('assert.text()', function (t) {
     function () {
       assert.text({type: 'break'});
     },
-    /^AssertionError: text should have `value`: `{ type: 'break' }`$/,
+    /text should have `value`: `{ type: 'break' }`$/,
     'should throw if the given node has no `value`'
   );
 

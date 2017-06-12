@@ -8,7 +8,7 @@ test('node', function (t) {
     function () {
       assert();
     },
-    /^AssertionError: node should be an object: `undefined`$/,
+    /node should be an object: `undefined`$/,
     'should throw if not given a node (#1)'
   );
 
@@ -16,7 +16,7 @@ test('node', function (t) {
     function () {
       assert(null);
     },
-    /^AssertionError: node should be an object: `null`$/,
+    /node should be an object: `null`$/,
     'should throw if not given a node (#2)'
   );
 
@@ -24,7 +24,7 @@ test('node', function (t) {
     function () {
       assert('foo');
     },
-    /^AssertionError: node should be an object: `'foo'`$/,
+    /node should be an object: `'foo'`$/,
     'should throw if given a non-node (#1)'
   );
 
@@ -32,7 +32,7 @@ test('node', function (t) {
     function () {
       assert(6);
     },
-    /^AssertionError: node should be an object: `6`$/,
+    /node should be an object: `6`$/,
     'should throw if not given a non-node (#2)'
   );
 

@@ -8,7 +8,7 @@ test('children', function (t) {
     function () {
       assert({type: 'foo', children: {alpha: 'bravo'}});
     },
-    /^AssertionError: `children` should be an array: `{ type: 'foo', children: { alpha: 'bravo' } }`$/,
+    /`children` should be an array: `{ type: 'foo', children: { alpha: 'bravo' } }`$/,
     'should throw if given a non-node child in children'
   );
 
@@ -16,7 +16,7 @@ test('children', function (t) {
     function () {
       assert({type: 'foo', children: ['one']});
     },
-    /^AssertionError: node should be an object: `'one'` in `{ type: 'foo', children: \[ 'one' ] }`$/,
+    /node should be an object: `'one'` in `{ type: 'foo', children: \[ 'one' ] }`$/,
     'should throw if given a non-node child in children'
   );
 
@@ -34,7 +34,7 @@ test('children', function (t) {
         children: ['one']
       }]});
     },
-    /^AssertionError: node should be an object: `'one'` in `{ type: 'bar', children: \[ 'one' ] }`$/,
+    /node should be an object: `'one'` in `{ type: 'bar', children: \[ 'one' ] }`$/,
     'should throw on invalid descendants'
   );
 

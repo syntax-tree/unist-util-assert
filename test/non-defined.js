@@ -29,7 +29,7 @@ test('non-defined', function (t) {
         data: {foo: Function}
       });
     },
-    /^AssertionError: non-specced property `data` should be JSON: `{ type: 'break', data: { foo: \[Function: Function] } }`$/,
+    /non-specced property `data` should be JSON: `{ type: 'break', data: { foo: \[Function: Function] } }`$/,
     'should throw if non-defined properties are not serialisable'
   );
 

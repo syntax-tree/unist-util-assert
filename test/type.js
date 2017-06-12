@@ -8,7 +8,7 @@ test('type', function (t) {
     function () {
       assert([1, 5]);
     },
-    /^AssertionError: node should have a type: `\[ 1, 5 ]`$/,
+    /node should have a type: `\[ 1, 5 ]`$/,
     'should throw if not given a `type` (#1)'
   );
 
@@ -16,7 +16,7 @@ test('type', function (t) {
     function () {
       assert({value: 'foo'});
     },
-    /^AssertionError: node should have a type: `{ value: 'foo' }`$/,
+    /node should have a type: `{ value: 'foo' }`$/,
     'should throw if not given a type (#2)'
   );
 
@@ -24,7 +24,7 @@ test('type', function (t) {
     function () {
       assert({type: 1});
     },
-    /^AssertionError: `type` should be a string: `{ type: 1 }`$/,
+    /`type` should be a string: `{ type: 1 }`$/,
     'should throw if not given a non-string type'
   );
 
@@ -32,7 +32,7 @@ test('type', function (t) {
     function () {
       assert({type: ''});
     },
-    /^AssertionError: `type` should not be empty: `{ type: '' }`$/,
+    /`type` should not be empty: `{ type: '' }`$/,
     'should throw if given an empty string type'
   );
 

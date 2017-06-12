@@ -8,7 +8,7 @@ test('assert.parent()', function (t) {
     function () {
       assert.parent({});
     },
-    /^AssertionError: node should have a type: `{}`$/,
+    /node should have a type: `{}`$/,
     'should throw the same errors as `assert()`'
   );
 
@@ -16,7 +16,7 @@ test('assert.parent()', function (t) {
     function () {
       assert.parent({type: 'text', value: 'foo'});
     },
-    /^AssertionError: parent should not have `value`: `{ type: 'text', value: 'foo' }`$/,
+    /parent should not have `value`: `{ type: 'text', value: 'foo' }`$/,
     'should throw if the given node has a `value`'
   );
 
@@ -24,7 +24,7 @@ test('assert.parent()', function (t) {
     function () {
       assert.parent({type: 'break'});
     },
-    /^AssertionError: parent should have `children`: `{ type: 'break' }`$/,
+    /parent should have `children`: `{ type: 'break' }`$/,
     'should throw if the given node has `children`'
   );
 

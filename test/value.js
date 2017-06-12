@@ -8,7 +8,7 @@ test('value', function (t) {
     function () {
       assert({type: 'foo', value: 1});
     },
-    /^AssertionError: `value` should be a string: `{ type: 'foo', value: 1 }`$/,
+    /`value` should be a string: `{ type: 'foo', value: 1 }`$/,
     'should throw if given a non-string `value`'
   );
 
