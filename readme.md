@@ -79,6 +79,14 @@ the node (and the parent, when given).
 *   [`nlcst-test`](https://github.com/syntax-tree/nlcst-test)
     — Check [nlcst](https://github.com/syntax-tree/nlcst) nodes
 
+## Contribute
+
+See [`contribute.md` in `syntax-tree/unist`][contribute] for ways to get
+started.
+
+This organisation has a [Code of Conduct][coc].  By interacting with this
+repository, organisation, or community you agree to abide by its terms.
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]
@@ -106,3 +114,7 @@ the node (and the parent, when given).
 [text]: https://github.com/syntax-tree/unist#text
 
 [mdast-util-assert]: https://github.com/syntax-tree/mdast-util-assert
+
+[contribute]: https://github.com/syntax-tree/unist/blob/master/contributing.md
+
+[coc]: https://github.com/syntax-tree/unist/blob/master/code-of-conduct.md
