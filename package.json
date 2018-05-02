@@ -1,6 +1,6 @@
 {
   "name": "unist-util-assert",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Assert Unist nodes",
   "license": "MIT",
   "keywords": [
