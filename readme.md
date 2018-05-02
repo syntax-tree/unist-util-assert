@@ -13,26 +13,26 @@ npm install unist-util-assert
 ## Usage
 
 ```javascript
-var assert = require('unist-util-assert');
+var assert = require('unist-util-assert')
 
-assert({type: 'root', children: []});
-assert({type: 'break'});
-assert({type: 'element', properties: {}, children: []});
+assert({type: 'root', children: []})
+assert({type: 'break'})
+assert({type: 'element', properties: {}, children: []})
 // All OK.
 
-assert({children: []});
+assert({children: []})
 // AssertionError: node should have a type: `{ children: [] }`
 
-assert.parent({type: 'break'});
+assert.parent({type: 'break'})
 // AssertionError: parent should have `children`: `{ type: 'break' }`
 
-assert({type: 'element', properties: function () {}});
+assert({type: 'element', properties: function() {}})
 // AssertionError: non-specced property `properties` should be JSON: `{ type: 'element', properties: [Function] }`
 
-assert.void({type: 'text', value: 'Alpha'});
+assert.void({type: 'text', value: 'Alpha'})
 // AssertionError: void should not have `value`: `{ type: 'text', value: 'Alpha' }`
 
-assert({type: 'paragraph', children: ['foo']});
+assert({type: 'paragraph', children: ['foo']})
 // AssertionError: node should be an object: `'foo'` in `{ type: 'paragraph', children: [ 'foo' ] }`
 ```
 
