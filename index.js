@@ -10,7 +10,7 @@ var inspect
 try {
   // eslint-disable-next-line import/no-dynamic-require, no-useless-concat
   inspect = require('ut' + 'il').inspect
-} catch (err) {
+} catch (error) {
   /* Empty. */
 }
 
@@ -37,18 +37,18 @@ function wrap(fn) {
   function wrapped(node, parent) {
     try {
       fn(node, parent)
-    } catch (err) {
-      if (!err[ID]) {
-        err[ID] = true
+    } catch (error) {
+      if (!error[ID]) {
+        error[ID] = true
 
-        err.message += ': `' + view(node) + '`'
+        error.message += ': `' + view(node) + '`'
 
         if (parent) {
-          err.message += ' in `' + view(parent) + '`'
+          error.message += ' in `' + view(parent) + '`'
         }
       }
 
-      throw err
+      throw error
     }
   }
 }
@@ -69,11 +69,11 @@ function unist(node) {
   value = node.value
 
   assert.ok('type' in node, 'node should have a type')
-  assert.equal(typeof type, 'string', '`type` should be a string')
-  assert.notEqual(type, '', '`type` should not be empty')
+  assert.strictEqual(typeof type, 'string', '`type` should be a string')
+  assert.notStrictEqual(type, '', '`type` should not be empty')
 
   if (value != null) {
-    assert.equal(typeof value, 'string', '`value` should be a string')
+    assert.strictEqual(typeof value, 'string', '`value` should be a string')
   }
 
   location(node.position)
@@ -99,9 +99,9 @@ function unist(node) {
  * and re-parsed to the same (deep) value. */
 function vanilla(key, value) {
   try {
-    assert.deepEqual(value, JSON.parse(JSON.stringify(value)))
-  } catch (err) {
-    assert.fail('', '', 'non-specced property `' + key + '` should be JSON')
+    assert.deepStrictEqual(value, JSON.parse(JSON.stringify(value)))
+  } catch (error) {
+    assert.fail('non-specced property `' + key + '` should be JSON')
   }
 }
 
@@ -117,7 +117,7 @@ function view(value) {
     } else {
       return JSON.stringify(value)
     }
-  } catch (err) {
+  } catch (error) {
     /* istanbul ignore next - Cyclical. */
     return String(value)
   }
@@ -127,7 +127,7 @@ function view(value) {
 function parent(node) {
   unist(node)
 
-  assert.equal('value' in node, false, 'parent should not have `value`')
+  assert.strictEqual('value' in node, false, 'parent should not have `value`')
   assert.ok('children' in node, 'parent should have `children`')
 }
 
@@ -135,7 +135,11 @@ function parent(node) {
 function text(node) {
   unist(node)
 
-  assert.equal('children' in node, false, 'text should not have `children`')
+  assert.strictEqual(
+    'children' in node,
+    false,
+    'text should not have `children`'
+  )
   assert.ok('value' in node, 'text should have `value`')
 }
 
@@ -144,8 +148,12 @@ function text(node) {
 function empty(node) {
   unist(node)
 
-  assert.equal('value' in node, false, 'void should not have `value`')
-  assert.equal('children' in node, false, 'void should not have `children`')
+  assert.strictEqual('value' in node, false, 'void should not have `value`')
+  assert.strictEqual(
+    'children' in node,
+    false,
+    'void should not have `children`'
+  )
 }
 
 /* Assert `location` is a Unist Location. */
