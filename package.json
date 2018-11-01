@@ -11,9 +11,9 @@
   ],
   "repository": "syntax-tree/unist-util-assert",
   "bugs": "https://github.com/syntax-tree/unist-util-assert/issues",
-  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
-    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
   "dependencies": {
     "x-is-array": "^0.1.0",
