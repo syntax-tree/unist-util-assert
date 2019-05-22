@@ -1,7 +1,6 @@
 'use strict'
 
 /* eslint-disable import/no-unassigned-import */
-
 require('./node')
 require('./type')
 require('./value')
@@ -11,3 +10,4 @@ require('./non-defined')
 require('./parent')
 require('./text')
 require('./void')
+/* eslint-enable import/no-unassigned-import */

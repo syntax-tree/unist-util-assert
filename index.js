@@ -8,7 +8,7 @@ var object = require('x-is-object')
 var inspect
 
 try {
-  // eslint-disable-next-line import/no-dynamic-require, no-useless-concat
+  // eslint-disable-next-line no-useless-concat
   inspect = require('ut' + 'il').inspect
 } catch (error) {
   /* Empty. */
@@ -117,6 +117,7 @@ function view(value) {
     } else {
       return JSON.stringify(value)
     }
+    /* eslint-enable no-else-return */
   } catch (error) {
     /* istanbul ignore next - Cyclical. */
     return String(value)
