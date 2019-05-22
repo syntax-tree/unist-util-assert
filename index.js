@@ -1,6 +1,5 @@
 'use strict'
 
-/* Dependencies. */
 var assert = require('assert')
 var array = require('x-is-array')
 var object = require('x-is-object')
@@ -10,11 +9,8 @@ var inspect
 try {
   // eslint-disable-next-line no-useless-concat
   inspect = require('ut' + 'il').inspect
-} catch (error) {
-  /* Empty. */
-}
+} catch (error) {}
 
-/* Expose. */
 exports = wrap(unist)
 module.exports = exports
 
@@ -23,14 +19,14 @@ exports.text = wrap(text)
 exports.void = wrap(empty)
 exports.wrap = wrap
 
-/* Identifier to check if a value is seen. */
+// Identifier to check if a value is seen.
 var ID = '__unist__'
 
-/* List of specced properties. */
+// List of specced properties.
 var defined = ['type', 'value', 'children', 'position']
 
-/* Wrapper around `Node` which adds the current node
- * (and parent, if available), to the message. */
+// Wrapper around `Node` which adds the current node (and parent, if available),
+// to the message.
 function wrap(fn) {
   return wrapped
 
@@ -53,7 +49,7 @@ function wrap(fn) {
   }
 }
 
-/* Assert. */
+// Assert.
 function unist(node) {
   var type
   var children
@@ -95,8 +91,8 @@ function unist(node) {
   }
 }
 
-/* Assert `value` (which lives at `key`) can be stringified
- * and re-parsed to the same (deep) value. */
+// Assert `value` (which lives at `key`) can be stringified and re-parsed to the
+// same (deep) value.
 function vanilla(key, value) {
   try {
     assert.deepStrictEqual(value, JSON.parse(JSON.stringify(value)))
@@ -105,9 +101,8 @@ function vanilla(key, value) {
   }
 }
 
-/* Stringify a value to inspect it.  Tries `JSON.stringify()`,
- * and if that fails uses `String()` instead.  If `stringify()`
- * works. */
+// Stringify a value to inspect it.
+// Tries `JSON.stringify()`, and if that fails uses `String()` instead.
 function view(value) {
   try {
     /* eslint-disable no-else-return */
@@ -124,7 +119,7 @@ function view(value) {
   }
 }
 
-/* Assert `node` is a parent node. */
+// Assert `node` is a parent node.
 function parent(node) {
   unist(node)
 
@@ -132,7 +127,7 @@ function parent(node) {
   assert.ok('children' in node, 'parent should have `children`')
 }
 
-/* Assert `node` is a text node. */
+// Assert `node` is a text node.
 function text(node) {
   unist(node)
 
@@ -144,8 +139,7 @@ function text(node) {
   assert.ok('value' in node, 'text should have `value`')
 }
 
-/* Assert `node` is a Unist node, but neither parent nor
- * text. */
+// Assert `node` is a Unist node, but neither parent nor text.
 function empty(node) {
   unist(node)
 
@@ -157,7 +151,7 @@ function empty(node) {
   )
 }
 
-/* Assert `location` is a Unist Location. */
+// Assert `location` is a Unist Location.
 function location(location) {
   if (location != null) {
     assert.ok(object(location), '`position` should be an object')
@@ -167,7 +161,7 @@ function location(location) {
   }
 }
 
-/* Assert `location` is a Unist Location. */
+// Assert `location` is a Unist Location.
 function position(position, name) {
   if (position != null) {
     assert.ok(object(position), '`' + name + '` should be an object')
