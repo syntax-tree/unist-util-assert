@@ -72,7 +72,7 @@ function unist(node) {
     assert.strictEqual(typeof value, 'string', '`value` should be a string')
   }
 
-  location(node.position)
+  position(node.position)
 
   for (key in node) {
     if (defined.indexOf(key) === -1) {
@@ -139,7 +139,7 @@ function text(node) {
   assert.ok('value' in node, 'text should have `value`')
 }
 
-// Assert `node` is a Unist node, but neither parent nor text.
+// Assert `node` is a unist node, but neither parent nor text.
 function empty(node) {
   unist(node)
 
@@ -151,32 +151,32 @@ function empty(node) {
   )
 }
 
-// Assert `location` is a Unist Location.
-function location(location) {
-  if (location != null) {
-    assert.ok(object(location), '`position` should be an object')
+// Assert `position` is a unist position.
+function position(position) {
+  if (position != null) {
+    assert.ok(object(position), '`position` should be an object')
 
-    position(location.start, 'position.start')
-    position(location.end, 'position.end')
+    point(position.start, 'position.start')
+    point(position.end, 'position.end')
   }
 }
 
-// Assert `location` is a Unist Location.
-function position(position, name) {
-  if (position != null) {
-    assert.ok(object(position), '`' + name + '` should be an object')
+// Assert `point` is a unist point.
+function point(point, name) {
+  if (point != null) {
+    assert.ok(object(point), '`' + name + '` should be an object')
 
-    if (position.line != null) {
-      assert.ok('line' in position, '`' + name + '` should have numeric `line`')
-      assert.ok(position.line >= 1, '`' + name + '.line` should be gte `1`')
+    if (point.line != null) {
+      assert.ok('line' in point, '`' + name + '` should have numeric `line`')
+      assert.ok(point.line >= 1, '`' + name + '.line` should be gte `1`')
     }
 
-    if (position.column != null) {
+    if (point.column != null) {
       assert.ok(
-        'column' in position,
+        'column' in point,
         '`' + name + '` should have numeric `column`'
       )
-      assert.ok(position.column >= 1, '`' + name + '.column` should be gte `1`')
+      assert.ok(point.column >= 1, '`' + name + '.column` should be gte `1`')
     }
   }
 }
