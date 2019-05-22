@@ -8,9 +8,9 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-Assert [Unist][] nodes.
+[**unist**][unist] utility to assert trees.
 
-## Installation
+## Install
 
 [npm][]:
 
@@ -20,7 +20,7 @@ npm install unist-util-assert
 
 ## Usage
 
-```javascript
+```js
 var assert = require('unist-util-assert')
 
 assert({type: 'root', children: []})
@@ -46,41 +46,43 @@ assert({type: 'paragraph', children: ['foo']})
 
 ## API
 
-### `assert(node)`
+### `assert(tree)`
 
-Assert that `node` is a valid [Unist][] node.  If `node` has `children`,
-all children will be asserted as well.
+Assert that [`tree`][tree] is a valid [unist][] [node][].
+If `tree` is a [parent][], all [child][]ren will be asserted as well.
 
-### `assert.parent(node)`
+### `assert.parent(tree)`
 
-Assert that `node` is a valid Unist [Parent][].
+Assert that `tree` is a valid [unist][] [parent][].
+All [child][]ren will be asserted as well.
 
 ### `assert.text(node)`
 
-Assert that `node` is a valid Unist [Text][].
+Assert that `node` is a valid [unist][] [literal][].
 
 ### `assert.void(node)`
 
-Assert that `node` is a valid Unist node, but neither Text nor Parent.
+Assert that `node` is a valid [unist][] [node][], but neither [parent][] nor
+[literal][].
 
 ## Extensions
 
-This module can be used as a base to test subsets of Unist (for an
-example, see [`mdast-util-assert`][mdast-util-assert]).  All functions
-which are exposed from such a module, and functions used internally to
-test child nodes, should be wrapped in `assert.wrap`, which adds an
-inspectable string of the respective node, and its parent when available,
-to exposed error message.
+This module can be used as a base to test subsets of [unist][] (for an example,
+see [`mdast-util-assert`][mdast-util-assert]).
+All functions that are exposed from such a module, and functions used internally
+to test [child][]ren, should be wrapped in `assert.wrap`, which adds an
+inspectable string of the respective node, and its parent when available, to
+the exposed error message.
 
 ### `assert.wrap(fn)`
 
-Wraps a function (which is passed a node, and an optional parent node),
-so that any errors thrown inside it will contain information regarding
-the node (and the parent, when given).
+Wraps `fn` (which is passed a node, and an optional parent node), so that any
+errors thrown inside it will contain information regarding the node (and the
+parent, when given).
 
 ## Related
 
-*   [`mdast-util-assert`](https://github.com/syntax-tree/mdast-util-assert)
+*   [`mdast-util-assert`][mdast-util-assert]
     — Check [mdast](https://github.com/syntax-tree/mdast) nodes
 *   [`hast-util-assert`](https://github.com/syntax-tree/hast-util-assert)
     — Check [hast](https://github.com/syntax-tree/hast) nodes
@@ -89,11 +91,13 @@ the node (and the parent, when given).
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/unist`][contributing] for ways to get
+See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
 started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
@@ -133,14 +137,22 @@ repository, organisation, or community you agree to abide by its terms.
 
 [author]: https://wooorm.com
 
+[contributing]: https://github.com/syntax-tree/.github/blob/master/contributing.md
+
+[support]: https://github.com/syntax-tree/.github/blob/master/support.md
+
+[coc]: https://github.com/syntax-tree/.github/blob/master/code-of-conduct.md
+
 [unist]: https://github.com/syntax-tree/unist
 
 [parent]: https://github.com/syntax-tree/unist#parent
 
-[text]: https://github.com/syntax-tree/unist#text
+[literal]: https://github.com/syntax-tree/unist#literal
+
+[node]: https://github.com/syntax-tree/unist#node
+
+[tree]: https://github.com/syntax-tree/unist#tree
+
+[child]: https://github.com/syntax-tree/unist#child
 
 [mdast-util-assert]: https://github.com/syntax-tree/mdast-util-assert
-
-[contributing]: https://github.com/syntax-tree/unist/blob/master/contributing.md
-
-[coc]: https://github.com/syntax-tree/unist/blob/master/code-of-conduct.md
