@@ -9,7 +9,7 @@ var inspect
 try {
   // eslint-disable-next-line no-useless-concat
   inspect = require('ut' + 'il').inspect
-} catch (error) {}
+} catch (_) {}
 
 exports = wrap(unist)
 module.exports = exports
@@ -75,7 +75,7 @@ function unist(node) {
   position(node.position)
 
   for (key in node) {
-    if (defined.indexOf(key) === -1) {
+    if (!defined.includes(key)) {
       vanilla(key, node[key])
     }
   }
@@ -96,7 +96,7 @@ function unist(node) {
 function vanilla(key, value) {
   try {
     assert.deepStrictEqual(value, JSON.parse(JSON.stringify(value)))
-  } catch (error) {
+  } catch (_) {
     assert.fail('non-specced property `' + key + '` should be JSON')
   }
 }
@@ -113,7 +113,7 @@ function view(value) {
       return JSON.stringify(value)
     }
     /* eslint-enable no-else-return */
-  } catch (error) {
+  } catch (_) {
     /* istanbul ignore next - Cyclical. */
     return String(value)
   }
