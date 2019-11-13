@@ -6,7 +6,7 @@ declare namespace unistUtilAssert {
   /**
    * A unist Node that is neither a Parent nor a Literal.
    */
-  interface VoidNode extends Node {
+  interface Void extends Node {
     children: never
     value: never
   }
@@ -33,7 +33,7 @@ declare const unistUtilAssert: {
   /**
    * Assert that node is a valid unist node, but neither parent nor literal.
    */
-  void(tree: unknown): asserts tree is unistUtilAssert.VoidNode
+  void(tree: unknown): asserts tree is unistUtilAssert.Void
 }
 
 export = unistUtilAssert

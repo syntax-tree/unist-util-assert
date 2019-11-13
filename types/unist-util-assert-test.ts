@@ -21,5 +21,5 @@ function testTextAssert() {
 function testVoidAssert() {
   const node = {}
   assert.void(node)
-  node // $ExpectType VoidNode
+  node // $ExpectType Void
 }
