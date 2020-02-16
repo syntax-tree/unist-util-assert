@@ -1,13 +1,16 @@
 {
   "name": "unist-util-assert",
   "version": "2.0.0",
-  "description": "Assert Unist nodes",
+  "description": "unist utility to assert nodes",
   "license": "MIT",
   "keywords": [
-    "assert",
     "unist",
+    "unist-util",
     "util",
-    "utility"
+    "utility",
+    "assert",
+    "check",
+    "test"
   ],
   "repository": "syntax-tree/unist-util-assert",
   "bugs": "https://github.com/syntax-tree/unist-util-assert/issues",
