@@ -3,8 +3,8 @@
 var test = require('tape')
 var assert = require('..')
 
-test('non-defined', function(t) {
-  t.doesNotThrow(function() {
+test('non-defined', function (t) {
+  t.doesNotThrow(function () {
     assert({
       type: 'element',
       properties: {
@@ -20,7 +20,7 @@ test('non-defined', function(t) {
   }, 'should not throw if non-defined properties are found')
 
   t.throws(
-    function() {
+    function () {
       assert({
         type: 'break',
         data: {foo: Function}

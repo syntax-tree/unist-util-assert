@@ -3,9 +3,9 @@
 var test = require('tape')
 var assert = require('..')
 
-test('node', function(t) {
+test('node', function (t) {
   t.throws(
-    function() {
+    function () {
       assert()
     },
     /node should be an object: `undefined`$/,
@@ -13,7 +13,7 @@ test('node', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert(null)
     },
     /node should be an object: `null`$/,
@@ -21,7 +21,7 @@ test('node', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert('foo')
     },
     /node should be an object: `'foo'`$/,
@@ -29,7 +29,7 @@ test('node', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert(6)
     },
     /node should be an object: `6`$/,

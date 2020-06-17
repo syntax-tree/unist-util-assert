@@ -3,9 +3,9 @@
 var test = require('tape')
 var assert = require('..')
 
-test('type', function(t) {
+test('type', function (t) {
   t.throws(
-    function() {
+    function () {
       assert([1, 5])
     },
     /node should have a type: `\[ 1, 5 ]`$/,
@@ -13,7 +13,7 @@ test('type', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({value: 'foo'})
     },
     /node should have a type: `{ value: 'foo' }`$/,
@@ -21,7 +21,7 @@ test('type', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: 1})
     },
     /`type` should be a string: `{ type: 1 }`$/,
@@ -29,14 +29,14 @@ test('type', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert({type: ''})
     },
     /`type` should not be empty: `{ type: '' }`$/,
     'should throw if given an empty string type'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     assert({type: 'foo'})
   }, 'should not throw if given a non-empty type string')
 

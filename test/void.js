@@ -3,9 +3,9 @@
 var test = require('tape')
 var assert = require('..')
 
-test('assert.void()', function(t) {
+test('assert.void()', function (t) {
   t.throws(
-    function() {
+    function () {
       assert.void({})
     },
     /node should have a type: `{}`$/,
@@ -13,7 +13,7 @@ test('assert.void()', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert.void({type: 'text', value: 'foo'})
     },
     /void should not have `value`: `{ type: 'text', value: 'foo' }`$/,
@@ -21,14 +21,14 @@ test('assert.void()', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert.void({type: 'strong', children: []})
     },
     /void should not have `children`: `{ type: 'strong', children: \[] }`$/,
     'should throw if the given node has `children`'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     assert.void({type: 'break'})
   }, 'should not throw on valid void nodes')
 

@@ -3,9 +3,9 @@
 var test = require('tape')
 var assert = require('..')
 
-test('assert.parent()', function(t) {
+test('assert.parent()', function (t) {
   t.throws(
-    function() {
+    function () {
       assert.parent({})
     },
     /node should have a type: `{}`$/,
@@ -13,7 +13,7 @@ test('assert.parent()', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert.parent({type: 'text', value: 'foo'})
     },
     /parent should not have `value`: `{ type: 'text', value: 'foo' }`$/,
@@ -21,14 +21,14 @@ test('assert.parent()', function(t) {
   )
 
   t.throws(
-    function() {
+    function () {
       assert.parent({type: 'break'})
     },
     /parent should have `children`: `{ type: 'break' }`$/,
     'should throw if the given node has `children`'
   )
 
-  t.doesNotThrow(function() {
+  t.doesNotThrow(function () {
     assert.parent({type: 'strong', children: []})
   }, 'should not throw on valid void nodes')
 
