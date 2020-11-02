@@ -105,14 +105,8 @@ function vanilla(key, value) {
 // Tries `JSON.stringify()`, and if that fails uses `String()` instead.
 function view(value) {
   try {
-    /* eslint-disable no-else-return */
-    /* istanbul ignore else - Browser. */
-    if (inspect) {
-      return inspect(value, {colors: false})
-    } else {
-      return JSON.stringify(value)
-    }
-    /* eslint-enable no-else-return */
+    /* istanbul ignore next - Browser. */
+    return inspect ? inspect(value, {colors: false}) : JSON.stringify(value)
   } catch (_) {
     /* istanbul ignore next - Cyclical. */
     return String(value)
