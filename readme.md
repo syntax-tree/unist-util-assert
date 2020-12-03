@@ -105,9 +105,9 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/syntax-tree/unist-util-assert.svg
+[build-badge]: https://github.com/syntax-tree/unist-util-assert/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/syntax-tree/unist-util-assert
+[build]: https://github.com/syntax-tree/unist-util-assert/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/unist-util-assert.svg
 
