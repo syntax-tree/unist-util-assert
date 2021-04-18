@@ -1,13 +1,11 @@
-'use strict'
-
 /* eslint-disable import/no-unassigned-import */
-require('./node')
-require('./type')
-require('./value')
-require('./children')
-require('./position')
-require('./non-defined')
-require('./parent')
-require('./text')
-require('./void')
+import './node.js'
+import './type.js'
+import './value.js'
+import './children.js'
+import './position.js'
+import './non-defined.js'
+import './parent.js'
+import './text.js'
+import './void.js'
 /* eslint-enable import/no-unassigned-import */

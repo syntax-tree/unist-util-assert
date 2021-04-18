@@ -12,16 +12,19 @@
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
-```bash
+```sh
 npm install unist-util-assert
 ```
 
 ## Use
 
 ```js
-var assert = require('unist-util-assert')
+import {assert} from 'unist-util-assert'
 
 assert({type: 'root', children: []})
 assert({type: 'break'})
@@ -45,6 +48,9 @@ assert({type: 'paragraph', children: ['foo']})
 ```
 
 ## API
+
+This package exports the following identifiers: `assert`, `wrap`.
+There is no default export.
 
 ### `assert(tree)`
 
@@ -70,11 +76,11 @@ Assert that `node` is a valid [unist][] [node][], but neither [parent][] nor
 This module can be used as a base to test subsets of [unist][] (for an example,
 see [`mdast-util-assert`][mdast-util-assert]).
 All functions that are exposed from such a module, and functions used internally
-to test [child][]ren, should be wrapped in `assert.wrap`, which adds an
-inspectable string of the respective node, and its parent when available, to
-the exposed error message.
+to test [child][]ren, should be wrapped in `wrap`, which adds an inspectable
+string of the respective node, and its parent when available, to the exposed
+error message.
 
-### `assert.wrap(fn)`
+### `wrap(fn)`
 
 Wraps `fn` (which is passed a node, and an optional parent node), so that any
 errors thrown inside it will contain information regarding the node (and the

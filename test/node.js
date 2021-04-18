@@ -1,7 +1,5 @@
-'use strict'
-
-var test = require('tape')
-var assert = require('..')
+import test from 'tape'
+import {assert} from '../index.js'
 
 test('node', function (t) {
   t.throws(

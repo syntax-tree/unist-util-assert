@@ -1,33 +1,20 @@
-'use strict'
+import nodeAssert from 'assert'
+import {inspect} from './inspect.js'
 
-var assert = require('assert')
-var array = require('x-is-array')
-var object = require('x-is-object')
-
-var inspect
-
-try {
-  // eslint-disable-next-line no-useless-concat
-  inspect = require('ut' + 'il').inspect
-} catch (_) {}
-
-exports = wrap(unist)
-module.exports = exports
-
-exports.parent = wrap(parent)
-exports.text = wrap(text)
-exports.void = wrap(empty)
-exports.wrap = wrap
+export var assert = wrap(assertNode)
+assert.parent = wrap(parent)
+assert.text = wrap(text)
+assert.void = wrap(empty)
 
 // Identifier to check if a value is seen.
 var ID = '__unist__'
 
 // List of specced properties.
-var defined = ['type', 'value', 'children', 'position']
+var defined = new Set(['type', 'value', 'children', 'position'])
 
 // Wrapper around `Node` which adds the current node (and parent, if available),
 // to the message.
-function wrap(fn) {
+export function wrap(fn) {
   return wrapped
 
   function wrapped(node, parent) {
@@ -50,7 +37,7 @@ function wrap(fn) {
 }
 
 // Assert.
-function unist(node) {
+function assertNode(node) {
   var type
   var children
   var value
@@ -58,35 +45,35 @@ function unist(node) {
   var index
   var length
 
-  assert.ok(object(node), 'node should be an object')
+  nodeAssert.ok(node === Object(node), 'node should be an object')
 
   type = node.type
   children = node.children
   value = node.value
 
-  assert.ok('type' in node, 'node should have a type')
-  assert.strictEqual(typeof type, 'string', '`type` should be a string')
-  assert.notStrictEqual(type, '', '`type` should not be empty')
+  nodeAssert.ok('type' in node, 'node should have a type')
+  nodeAssert.strictEqual(typeof type, 'string', '`type` should be a string')
+  nodeAssert.notStrictEqual(type, '', '`type` should not be empty')
 
-  if (value != null) {
-    assert.strictEqual(typeof value, 'string', '`value` should be a string')
+  if (value !== null && value !== undefined) {
+    nodeAssert.strictEqual(typeof value, 'string', '`value` should be a string')
   }
 
   position(node.position)
 
   for (key in node) {
-    if (!defined.includes(key)) {
+    if (!defined.has(key)) {
       vanilla(key, node[key])
     }
   }
 
-  if (children != null) {
-    assert.ok(array(children), '`children` should be an array')
+  if (children !== null && children !== undefined) {
+    nodeAssert.ok(Array.isArray(children), '`children` should be an array')
     index = -1
     length = children.length
 
     while (++index < length) {
-      exports(children[index], node)
+      assert(children[index], node)
     }
   }
 }
@@ -95,9 +82,9 @@ function unist(node) {
 // same (deep) value.
 function vanilla(key, value) {
   try {
-    assert.deepStrictEqual(value, JSON.parse(JSON.stringify(value)))
-  } catch (_) {
-    assert.fail('non-specced property `' + key + '` should be JSON')
+    nodeAssert.deepStrictEqual(value, JSON.parse(JSON.stringify(value)))
+  } catch {
+    nodeAssert.fail('non-specced property `' + key + '` should be JSON')
   }
 }
 
@@ -105,40 +92,43 @@ function vanilla(key, value) {
 // Tries `JSON.stringify()`, and if that fails uses `String()` instead.
 function view(value) {
   try {
-    /* istanbul ignore next - Browser. */
-    return inspect ? inspect(value, {colors: false}) : JSON.stringify(value)
-  } catch (_) {
-    /* istanbul ignore next - Cyclical. */
+    return inspect(value)
+    /* c8 ignore next 3 */
+  } catch {
     return String(value)
   }
 }
 
 // Assert `node` is a parent node.
 function parent(node) {
-  unist(node)
+  assertNode(node)
 
-  assert.strictEqual('value' in node, false, 'parent should not have `value`')
-  assert.ok('children' in node, 'parent should have `children`')
+  nodeAssert.strictEqual(
+    'value' in node,
+    false,
+    'parent should not have `value`'
+  )
+  nodeAssert.ok('children' in node, 'parent should have `children`')
 }
 
 // Assert `node` is a text node.
 function text(node) {
-  unist(node)
+  assertNode(node)
 
-  assert.strictEqual(
+  nodeAssert.strictEqual(
     'children' in node,
     false,
     'text should not have `children`'
   )
-  assert.ok('value' in node, 'text should have `value`')
+  nodeAssert.ok('value' in node, 'text should have `value`')
 }
 
 // Assert `node` is a unist node, but neither parent nor text.
 function empty(node) {
-  unist(node)
+  assertNode(node)
 
-  assert.strictEqual('value' in node, false, 'void should not have `value`')
-  assert.strictEqual(
+  nodeAssert.strictEqual('value' in node, false, 'void should not have `value`')
+  nodeAssert.strictEqual(
     'children' in node,
     false,
     'void should not have `children`'
@@ -147,8 +137,11 @@ function empty(node) {
 
 // Assert `position` is a unist position.
 function position(position) {
-  if (position != null) {
-    assert.ok(object(position), '`position` should be an object')
+  if (position !== null && position !== undefined) {
+    nodeAssert.ok(
+      position === Object(position),
+      '`position` should be an object'
+    )
 
     point(position.start, 'position.start')
     point(position.end, 'position.end')
@@ -157,20 +150,26 @@ function position(position) {
 
 // Assert `point` is a unist point.
 function point(point, name) {
-  if (point != null) {
-    assert.ok(object(point), '`' + name + '` should be an object')
+  if (point !== null && point !== undefined) {
+    nodeAssert.ok(point === Object(point), '`' + name + '` should be an object')
 
-    if (point.line != null) {
-      assert.ok('line' in point, '`' + name + '` should have numeric `line`')
-      assert.ok(point.line >= 1, '`' + name + '.line` should be gte `1`')
+    if (point.line !== null && point.line !== undefined) {
+      nodeAssert.ok(
+        'line' in point,
+        '`' + name + '` should have numeric `line`'
+      )
+      nodeAssert.ok(point.line >= 1, '`' + name + '.line` should be gte `1`')
     }
 
-    if (point.column != null) {
-      assert.ok(
+    if (point.column !== null && point.column !== undefined) {
+      nodeAssert.ok(
         'column' in point,
         '`' + name + '` should have numeric `column`'
       )
-      assert.ok(point.column >= 1, '`' + name + '.column` should be gte `1`')
+      nodeAssert.ok(
+        point.column >= 1,
+        '`' + name + '.column` should be gte `1`'
+      )
     }
   }
 }
