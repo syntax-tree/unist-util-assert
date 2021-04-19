@@ -62,7 +62,7 @@ If `tree` is a [parent][], all [child][]ren will be asserted as well.
 Assert that `tree` is a valid [unist][] [parent][].
 All [child][]ren will be asserted as well.
 
-### `assert.text(node)`
+### `assert.literal(node)`
 
 Assert that `node` is a valid [unist][] [literal][].
 
