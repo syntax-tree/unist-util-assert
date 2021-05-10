@@ -5,7 +5,7 @@
  * @typedef {import('unist').Literal} Literal
  * @typedef {import('unist').Position} Position
  * @typedef {import('unist').Point} Point
- * @typedef {Node & {children: never, value: never}} Void
+ * @typedef {Node & {children: never, value: never}} _Void
  */
 
 import nodeAssert from 'assert'
@@ -53,7 +53,7 @@ export function literal(node, parent) {
  *
  * @param {unknown} [node]
  * @param {Parent} [parent]
- * @returns {asserts node is Void}
+ * @returns {asserts node is _Void}
  */
 export function _void(node, parent) {
   return wrap(assertVoid)(node, parent)
@@ -231,7 +231,7 @@ function assertLiteral(node) {
  * Assert `node` is a unist node, but neither parent nor literal.
  *
  * @param {Node} node
- * @returns {asserts node is Void}
+ * @returns {asserts node is _Void}
  */
 function assertVoid(node) {
   assertNode(node)
