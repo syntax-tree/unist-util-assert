@@ -4,9 +4,9 @@ import {assert} from '../index.js'
 test('type', function (t) {
   t.throws(
     function () {
-      assert([1, 5])
+      assert({})
     },
-    /node should have a type: `\[ 1, 5 ]`$/,
+    /node should have a type: `{}`$/,
     'should throw if not given a `type` (#1)'
   )
 

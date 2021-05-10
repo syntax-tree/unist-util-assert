@@ -24,7 +24,7 @@ npm install unist-util-assert
 ## Use
 
 ```js
-import {assert} from 'unist-util-assert'
+import {assert, parent, _void} from 'unist-util-assert'
 
 assert({type: 'root', children: []})
 assert({type: 'break'})
@@ -34,13 +34,13 @@ assert({type: 'element', properties: {}, children: []})
 assert({children: []})
 // AssertionError: node should have a type: `{ children: [] }`
 
-assert.parent({type: 'break'})
+parent({type: 'break'})
 // AssertionError: parent should have `children`: `{ type: 'break' }`
 
 assert({type: 'element', properties: function() {}})
 // AssertionError: non-specced property `properties` should be JSON: `{ type: 'element', properties: [Function] }`
 
-assert.void({type: 'text', value: 'Alpha'})
+_void({type: 'text', value: 'Alpha'})
 // AssertionError: void should not have `value`: `{ type: 'text', value: 'Alpha' }`
 
 assert({type: 'paragraph', children: ['foo']})
@@ -49,24 +49,25 @@ assert({type: 'paragraph', children: ['foo']})
 
 ## API
 
-This package exports the following identifiers: `assert`, `wrap`.
+This package exports the following identifiers: `assert`, `parent`, `literal`,
+`_void`, `wrap`.
 There is no default export.
 
-### `assert(tree)`
+### `assert(node[, parent])`
 
-Assert that [`tree`][tree] is a valid [unist][] [node][].
-If `tree` is a [parent][], all [child][]ren will be asserted as well.
+Assert that `node` is a valid [unist][] [node][].
+If `node` is a [parent][], all [child][]ren will be asserted too.
 
-### `assert.parent(tree)`
+### `parent(node[, parent])`
 
-Assert that `tree` is a valid [unist][] [parent][].
-All [child][]ren will be asserted as well.
+Assert that `node` is a valid [unist][] [parent][].
+All [child][]ren will be asserted too.
 
-### `assert.literal(node)`
+### `literal(node[, parent])`
 
 Assert that `node` is a valid [unist][] [literal][].
 
-### `assert.void(node)`
+### `_void(node[, parent])`
 
 Assert that `node` is a valid [unist][] [node][], but neither [parent][] nor
 [literal][].
@@ -156,8 +157,6 @@ abide by its terms.
 [literal]: https://github.com/syntax-tree/unist#literal
 
 [node]: https://github.com/syntax-tree/unist#node
-
-[tree]: https://github.com/syntax-tree/unist#tree
 
 [child]: https://github.com/syntax-tree/unist#child
 

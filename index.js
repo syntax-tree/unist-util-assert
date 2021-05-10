@@ -1,12 +1,10 @@
 /**
+ * @typedef {import('assert').AssertionError} AssertionError
  * @typedef {import('unist').Node} Node
  * @typedef {import('unist').Parent} Parent
  * @typedef {import('unist').Literal} Literal
  * @typedef {import('unist').Position} Position
  * @typedef {import('unist').Point} Point
- *
- * @typedef {import('assert').AssertionError} AssertionError
- *
  * @typedef {Node & {children: never, value: never}} Void
  */
 
@@ -15,13 +13,51 @@ import {inspect} from './inspect.js'
 
 var own = {}.hasOwnProperty
 
-var ok = /** @type {wrap<Node>(assertNode)} */ wrap(assertNode)
+/**
+ * Assert that `node` is a valid unist node.
+ * If `node` is a parent, all children will be asserted too.
+ *
+ * @param {unknown} [node]
+ * @param {Parent} [parent]
+ * @returns {asserts node is Node}
+ */
+export function assert(node, parent) {
+  return wrap(assertNode)(node, parent)
+}
 
-export var assert = Object.assign(ok, {
-  parent: /** @type {wrap<Parent>(parent)} */ wrap(parent),
-  literal: /** @type {wrap<Literal>(literal)} */ wrap(literal),
-  void: /** @type {wrap<Void>(empty)} */ wrap(empty)
-})
+/**
+ * Assert that `node` is a valid unist parent.
+ * All children will be asserted too.
+ *
+ * @param {unknown} [node]
+ * @param {Parent} [parent]
+ * @returns {asserts node is Parent}
+ */
+export function parent(node, parent) {
+  return wrap(assertParent)(node, parent)
+}
+
+/**
+ * Assert that `node` is a valid unist literal.
+ *
+ * @param {unknown} [node]
+ * @param {Parent} [parent]
+ * @returns {asserts node is Literal}
+ */
+export function literal(node, parent) {
+  return wrap(assertLiteral)(node, parent)
+}
+
+/**
+ * Assert that `node` is a valid unist node, but neither parent nor literal.
+ *
+ * @param {unknown} [node]
+ * @param {Parent} [parent]
+ * @returns {asserts node is Void}
+ */
+export function _void(node, parent) {
+  return wrap(assertVoid)(node, parent)
+}
 
 // Identifier to check if a value is seen.
 var ID = '__unist__'
@@ -30,18 +66,17 @@ var ID = '__unist__'
 var defined = new Set(['type', 'value', 'children', 'position'])
 
 /**
- * Wrapper around `Node` which adds the current node (and parent, if available),
- * to the message.
+ * Wrapper that adds the current node (and parent, if available) to error
+ * messages.
  *
- * @template {Node} T
- * @param {(node?: T, parent?: Parent|null) => asserts node is T} fn
- * @returns {(node?: T, parent?: Parent|null) => asserts node is T}
+ * @param {(node?: unknown, parent?: Parent|null) => asserts node is Node} fn
+ * @returns {(node?: unknown, parent?: Parent|null) => asserts node is Node}
  */
 export function wrap(fn) {
   return wrapped
 
   /**
-   * @param {T} node
+   * @param {unknown} node
    * @param {Parent} [parent]
    * @throws {AssertionError}
    * @returns {asserts node is T}
@@ -64,39 +99,44 @@ export function wrap(fn) {
 /**
  * Assert.
  *
- * @param {Node} node
+ * @param {unknown} node
  * @returns {asserts node is Node}
  */
 function assertNode(node) {
   var index = -1
   /** @type {Parent} */
   var parent
-  /** @type {Node} */
+  /** @type {unknown} */
   var child
   /** @type {string} */
   var key
 
   nodeAssert.ok(
-    typeof node === 'object' && !Array.isArray(node),
+    node && typeof node === 'object' && !Array.isArray(node),
     'node should be an object'
   )
 
   nodeAssert.ok(own.call(node, 'type'), 'node should have a type')
   nodeAssert.strictEqual(
+    // @ts-expect-error Looks like an indexed object.
     typeof node.type,
     'string',
     '`type` should be a string'
   )
+  // @ts-expect-error Looks like an indexed object.
   nodeAssert.notStrictEqual(node.type, '', '`type` should not be empty')
 
+  // @ts-expect-error Looks like an indexed object.
   if (node.value !== null && node.value !== undefined) {
     nodeAssert.strictEqual(
+      // @ts-expect-error Looks like an indexed object.
       typeof node.value,
       'string',
       '`value` should be a string'
     )
   }
 
+  // @ts-expect-error Looks like an indexed object.
   position(node.position)
 
   for (key in node) {
@@ -105,8 +145,9 @@ function assertNode(node) {
     }
   }
 
+  // @ts-expect-error Looks like an indexed object.
   if (node.children !== null && node.children !== undefined) {
-    // @ts-ignore hush TS.
+    // @ts-expect-error Looks like parent.
     parent = node
     nodeAssert.ok(
       Array.isArray(parent.children),
@@ -116,7 +157,7 @@ function assertNode(node) {
 
     while (++index < parent.children.length) {
       child = parent.children[index]
-      ok(child, parent)
+      assert(child, parent)
     }
   }
 }
@@ -158,7 +199,7 @@ function view(value) {
  * @param {Node} node
  * @returns {asserts node is Parent}
  */
-function parent(node) {
+function assertParent(node) {
   assertNode(node)
 
   nodeAssert.strictEqual(
@@ -175,7 +216,7 @@ function parent(node) {
  * @param {Node} node
  * @returns {asserts node is Literal}
  */
-function literal(node) {
+function assertLiteral(node) {
   assertNode(node)
 
   nodeAssert.strictEqual(
@@ -192,7 +233,7 @@ function literal(node) {
  * @param {Node} node
  * @returns {asserts node is Void}
  */
-function empty(node) {
+function assertVoid(node) {
   assertNode(node)
 
   nodeAssert.strictEqual('value' in node, false, 'void should not have `value`')
