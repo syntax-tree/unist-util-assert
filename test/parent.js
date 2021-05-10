@@ -1,10 +1,10 @@
 import test from 'tape'
-import {assert} from '../index.js'
+import {parent} from '../index.js'
 
-test('assert.parent()', function (t) {
+test('parent()', function (t) {
   t.throws(
     function () {
-      assert.parent({})
+      parent({})
     },
     /node should have a type: `{}`$/,
     'should throw the same errors as `assert()`'
@@ -12,7 +12,7 @@ test('assert.parent()', function (t) {
 
   t.throws(
     function () {
-      assert.parent({type: 'text', value: 'foo'})
+      parent({type: 'text', value: 'foo'})
     },
     /parent should not have `value`: `{ type: 'text', value: 'foo' }`$/,
     'should throw if the given node has a `value`'
@@ -20,14 +20,14 @@ test('assert.parent()', function (t) {
 
   t.throws(
     function () {
-      assert.parent({type: 'break'})
+      parent({type: 'break'})
     },
     /parent should have `children`: `{ type: 'break' }`$/,
     'should throw if the given node has `children`'
   )
 
   t.doesNotThrow(function () {
-    assert.parent({type: 'strong', children: []})
+    parent({type: 'strong', children: []})
   }, 'should not throw on valid void nodes')
 
   t.end()

@@ -1,10 +1,10 @@
 import test from 'tape'
-import {assert} from '../index.js'
+import {literal} from '../index.js'
 
-test('assert.text()', function (t) {
+test('literal()', function (t) {
   t.throws(
     function () {
-      assert.text({})
+      literal({})
     },
     /node should have a type: `{}`$/,
     'should throw the same errors as `assert()`'
@@ -12,22 +12,22 @@ test('assert.text()', function (t) {
 
   t.throws(
     function () {
-      assert.text({type: 'strong', children: []})
+      literal({type: 'strong', children: []})
     },
-    /text should not have `children`: `{ type: 'strong', children: \[] }`$/,
+    /literal should not have `children`: `{ type: 'strong', children: \[] }`$/,
     'should throw if the given node has `children`'
   )
 
   t.throws(
     function () {
-      assert.text({type: 'break'})
+      literal({type: 'break'})
     },
-    /text should have `value`: `{ type: 'break' }`$/,
+    /literal should have `value`: `{ type: 'break' }`$/,
     'should throw if the given node has no `value`'
   )
 
   t.doesNotThrow(function () {
-    assert.text({type: 'text', value: 'foo'})
+    literal({type: 'text', value: 'foo'})
   }, 'should not throw on valid text nodes')
 
   t.end()
