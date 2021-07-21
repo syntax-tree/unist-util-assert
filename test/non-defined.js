@@ -1,8 +1,8 @@
 import test from 'tape'
 import {assert} from '../index.js'
 
-test('non-defined', function (t) {
-  t.doesNotThrow(function () {
+test('non-defined', (t) => {
+  t.doesNotThrow(() => {
     assert({
       type: 'element',
       properties: {
@@ -18,7 +18,7 @@ test('non-defined', function (t) {
   }, 'should not throw if non-defined properties are found')
 
   t.throws(
-    function () {
+    () => {
       assert({
         type: 'break',
         data: {foo: Function}

@@ -1,9 +1,9 @@
 import test from 'tape'
 import {_void} from '../index.js'
 
-test('_void()', function (t) {
+test('_void()', (t) => {
   t.throws(
-    function () {
+    () => {
       _void({})
     },
     /node should have a type: `{}`$/,
@@ -11,7 +11,7 @@ test('_void()', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       _void({type: 'text', value: 'foo'})
     },
     /void should not have `value`: `{ type: 'text', value: 'foo' }`$/,
@@ -19,14 +19,14 @@ test('_void()', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       _void({type: 'strong', children: []})
     },
     /void should not have `children`: `{ type: 'strong', children: \[] }`$/,
     'should throw if the given node has `children`'
   )
 
-  t.doesNotThrow(function () {
+  t.doesNotThrow(() => {
     _void({type: 'break'})
   }, 'should not throw on valid void nodes')
 

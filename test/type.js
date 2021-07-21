@@ -1,9 +1,9 @@
 import test from 'tape'
 import {assert} from '../index.js'
 
-test('type', function (t) {
+test('type', (t) => {
   t.throws(
-    function () {
+    () => {
       assert({})
     },
     /node should have a type: `{}`$/,
@@ -11,7 +11,7 @@ test('type', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       assert({value: 'foo'})
     },
     /node should have a type: `{ value: 'foo' }`$/,
@@ -19,7 +19,7 @@ test('type', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       assert({type: 1})
     },
     /`type` should be a string: `{ type: 1 }`$/,
@@ -27,14 +27,14 @@ test('type', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       assert({type: ''})
     },
     /`type` should not be empty: `{ type: '' }`$/,
     'should throw if given an empty string type'
   )
 
-  t.doesNotThrow(function () {
+  t.doesNotThrow(() => {
     assert({type: 'foo'})
   }, 'should not throw if given a non-empty type string')
 

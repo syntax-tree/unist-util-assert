@@ -1,9 +1,9 @@
 import test from 'tape'
 import {literal} from '../index.js'
 
-test('literal()', function (t) {
+test('literal()', (t) => {
   t.throws(
-    function () {
+    () => {
       literal({})
     },
     /node should have a type: `{}`$/,
@@ -11,7 +11,7 @@ test('literal()', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       literal({type: 'strong', children: []})
     },
     /literal should not have `children`: `{ type: 'strong', children: \[] }`$/,
@@ -19,14 +19,14 @@ test('literal()', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       literal({type: 'break'})
     },
     /literal should have `value`: `{ type: 'break' }`$/,
     'should throw if the given node has no `value`'
   )
 
-  t.doesNotThrow(function () {
+  t.doesNotThrow(() => {
     literal({type: 'text', value: 'foo'})
   }, 'should not throw on valid text nodes')
 

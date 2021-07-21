@@ -8,10 +8,10 @@
  * @typedef {Node & {children: never, value: never}} _Void
  */
 
-import nodeAssert from 'assert'
+import nodeAssert from 'node:assert'
 import {inspect} from './inspect.js'
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
 /**
  * Assert that `node` is a valid unist node.
@@ -60,10 +60,10 @@ export function _void(node, parent) {
 }
 
 // Identifier to check if a value is seen.
-var ID = '__unist__'
+const ID = '__unist__'
 
 // List of specced properties.
-var defined = new Set(['type', 'value', 'children', 'position'])
+const defined = new Set(['type', 'value', 'children', 'position'])
 
 /**
  * Wrapper that adds the current node (and parent, if available) to error
@@ -103,13 +103,7 @@ export function wrap(fn) {
  * @returns {asserts node is Node}
  */
 function assertNode(node) {
-  var index = -1
-  /** @type {Parent} */
-  var parent
-  /** @type {unknown} */
-  var child
-  /** @type {string} */
-  var key
+  let index = -1
 
   nodeAssert.ok(
     node && typeof node === 'object' && !Array.isArray(node),
@@ -139,6 +133,9 @@ function assertNode(node) {
   // @ts-expect-error Looks like an indexed object.
   position(node.position)
 
+  /** @type {string} */
+  let key
+
   for (key in node) {
     if (!defined.has(key)) {
       vanilla(key, node[key])
@@ -147,8 +144,9 @@ function assertNode(node) {
 
   // @ts-expect-error Looks like an indexed object.
   if (node.children !== null && node.children !== undefined) {
+    /** @type {Parent} */
     // @ts-expect-error Looks like parent.
-    parent = node
+    const parent = node
     nodeAssert.ok(
       Array.isArray(parent.children),
       '`children` should be an array'
@@ -156,8 +154,7 @@ function assertNode(node) {
     index = -1
 
     while (++index < parent.children.length) {
-      child = parent.children[index]
-      assert(child, parent)
+      assert(parent.children[index], parent)
     }
   }
 }

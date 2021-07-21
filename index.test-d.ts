@@ -2,9 +2,9 @@ import {expectType, expectNotType} from 'tsd'
 import {Node, Parent} from 'unist'
 import {assert, parent} from './index.js'
 
-var emptyNode = {type: 'a'}
-var literalNode = {type: 'b', value: 'c'}
-var parentNode = {type: 'd', children: [emptyNode, literalNode]}
+const emptyNode = {type: 'a'}
+const literalNode = {type: 'b', value: 'c'}
+const parentNode = {type: 'd', children: [emptyNode, literalNode]}
 
 expectNotType<Node>(emptyNode)
 expectNotType<Node>(literalNode)

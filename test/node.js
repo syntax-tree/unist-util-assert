@@ -1,9 +1,9 @@
 import test from 'tape'
 import {assert} from '../index.js'
 
-test('node', function (t) {
+test('node', (t) => {
   t.throws(
-    function () {
+    () => {
       assert()
     },
     /node should be an object: `undefined`$/,
@@ -11,7 +11,7 @@ test('node', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       assert(null)
     },
     /node should be an object: `null`$/,
@@ -19,7 +19,7 @@ test('node', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       assert('foo')
     },
     /node should be an object: `'foo'`$/,
@@ -27,7 +27,7 @@ test('node', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       assert(6)
     },
     /node should be an object: `6`$/,
