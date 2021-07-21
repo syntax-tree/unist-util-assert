@@ -84,6 +84,10 @@
     "atLeast": 100,
     "detail": true,
     "strict": true,
-    "ignoreCatch": true
+    "ignoreCatch": true,
+    "#": "Couple of needed any’s",
+    "ignoreFiles": [
+      "index.d.ts"
+    ]
   }
 }

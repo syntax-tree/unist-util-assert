@@ -69,17 +69,17 @@ const defined = new Set(['type', 'value', 'children', 'position'])
  * Wrapper that adds the current node (and parent, if available) to error
  * messages.
  *
- * @param {(node?: unknown, parent?: Parent|null) => asserts node is Node} fn
- * @returns {(node?: unknown, parent?: Parent|null) => asserts node is Node}
+ * @param {(node?: any, parent?: Parent|null) => asserts node is Node} fn
+ * @returns {(node?: any, parent?: Parent|null) => asserts node is Node}
  */
 export function wrap(fn) {
   return wrapped
 
   /**
    * @param {unknown} node
-   * @param {Parent} [parent]
+   * @param {Parent|null|undefined} [parent]
    * @throws {AssertionError}
-   * @returns {asserts node is T}
+   * @returns {void}
    */
   function wrapped(node, parent) {
     try {
@@ -138,7 +138,10 @@ function assertNode(node) {
 
   for (key in node) {
     if (!defined.has(key)) {
-      vanilla(key, node[key])
+      /** @type {unknown} */
+      // @ts-expect-error: hush.
+      const value = node[key]
+      vanilla(key, value)
     }
   }
 
