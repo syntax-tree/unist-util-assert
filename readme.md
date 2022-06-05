@@ -8,17 +8,61 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**unist**][unist] utility to assert trees.
+[unist][] utility to assert trees.
+
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`assert(node[, parent])`](#assertnode-parent)
+    *   [`parent(node[, parent])`](#parentnode-parent)
+    *   [`literal(node[, parent])`](#literalnode-parent)
+    *   [`_void(node[, parent])`](#_voidnode-parent)
+    *   [`wrap(fn)`](#wrapfn)
+*   [Extensions](#extensions)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package is a tiny utility that helps you deal with nodes.
+
+## When should I use this?
+
+This utility is typically useful when you expect certain nodes in your APIs
+and want to make sure they’re valid and as expected.
+
+Different utilities, [`mdast-util-assert`][mdast-util-assert],
+[`hast-util-assert`][hast-util-assert], and [`nlcst-test`][nlcst-test],
+do the same but for mdast, hast, and nlcst nodes, respectively.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
 
 ```sh
 npm install unist-util-assert
+```
+
+In Deno with [`esm.sh`][esmsh]:
+
+```js
+import {assert} from 'https://esm.sh/unist-util-assert@3'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import {assert} from 'https://esm.sh/unist-util-assert@3?bundle'
+</script>
 ```
 
 ## Use
@@ -49,37 +93,33 @@ assert({type: 'paragraph', children: ['foo']})
 
 ## API
 
-This package exports the following identifiers: `assert`, `parent`, `literal`,
-`_void`, `wrap`.
+This package exports the identifiers `assert`, `parent`, `literal`, `_void`,
+and `wrap`.
 There is no default export.
 
 ### `assert(node[, parent])`
 
-Assert that `node` is a valid [unist][] [node][].
-If `node` is a [parent][], all [child][]ren will be asserted too.
+Assert that `node` is a valid unist [`Node`][node].
+If `tree` is a [parent][], all children will be asserted as well.
+
+###### Throws
+
+When `node`, or one of its children, is not a valid node.
 
 ### `parent(node[, parent])`
 
-Assert that `node` is a valid [unist][] [parent][].
-All [child][]ren will be asserted too.
+Assert that `node` is a valid unist [`Parent`][parent].
+All children will be asserted as well.
 
 ### `literal(node[, parent])`
 
-Assert that `node` is a valid [unist][] [literal][].
+Assert that `node` is a valid unist [`Literal`][literal].
 
 ### `_void(node[, parent])`
 
-Assert that `node` is a valid [unist][] [node][], but neither [parent][] nor
-[literal][].
-
-## Extensions
-
-This module can be used as a base to test subsets of [unist][] (for an example,
-see [`mdast-util-assert`][mdast-util-assert]).
-All functions that are exposed from such a module, and functions used internally
-to test [child][]ren, should be wrapped in `wrap`, which adds an inspectable
-string of the respective node, and its parent when available, to the exposed
-error message.
+Assert that `node` is a valid unist [`Node`][node], but neither
+[`Parent`][parent] nor
+[`Literal`][literal].
 
 ### `wrap(fn)`
 
@@ -87,19 +127,40 @@ Wraps `fn` (which is passed a node, and an optional parent node), so that any
 errors thrown inside it will contain information regarding the node (and the
 parent, when given).
 
+## Extensions
+
+This module can be used as a base to test subsets of unist (for an example, see
+[`mdast-util-assert`][mdast-util-assert]).
+All functions that are exposed from such a module, and functions used internally
+to test children, should be wrapped in `wrap`, which adds an inspectable string
+of the respective node, and its parent when available, to the exposed error
+message.
+
+## Types
+
+This package is fully typed with [TypeScript][].
+It does not export additional types.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
+
 ## Related
 
 *   [`mdast-util-assert`][mdast-util-assert]
-    — Check [mdast](https://github.com/syntax-tree/mdast) nodes
+    — assert mdast nodes
 *   [`hast-util-assert`](https://github.com/syntax-tree/hast-util-assert)
-    — Check [hast](https://github.com/syntax-tree/hast) nodes
+    — assert hast nodes
 *   [`nlcst-test`](https://github.com/syntax-tree/nlcst-test)
-    — Check [nlcst](https://github.com/syntax-tree/nlcst) nodes
+    — assert nlcst nodes
 
 ## Contribute
 
-See [`contributing.md` in `syntax-tree/.github`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`syntax-tree/.github`][health] for
+ways to get started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
@@ -140,24 +201,34 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[typescript]: https://www.typescriptlang.org
+
 [license]: license
 
 [author]: https://wooorm.com
 
-[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
+[health]: https://github.com/syntax-tree/.github
 
-[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
+[contributing]: https://github.com/syntax-tree/.github/blob/main/contributing.md
 
-[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
+[support]: https://github.com/syntax-tree/.github/blob/main/support.md
+
+[coc]: https://github.com/syntax-tree/.github/blob/main/code-of-conduct.md
 
 [unist]: https://github.com/syntax-tree/unist
+
+[node]: https://github.com/syntax-tree/unist#node
 
 [parent]: https://github.com/syntax-tree/unist#parent
 
 [literal]: https://github.com/syntax-tree/unist#literal
 
-[node]: https://github.com/syntax-tree/unist#node
-
-[child]: https://github.com/syntax-tree/unist#child
-
 [mdast-util-assert]: https://github.com/syntax-tree/mdast-util-assert
+
+[hast-util-assert]: https://github.com/syntax-tree/hast-util-assert
+
+[nlcst-test]: https://github.com/syntax-tree/nlcst-test
