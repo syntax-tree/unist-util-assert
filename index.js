@@ -6,6 +6,11 @@
  * @typedef {import('unist').Position} Position
  * @typedef {import('unist').Point} Point
  * @typedef {Node & {children: never, value: never}} _Void
+ *
+ * @typedef SeenErrorFields
+ * @property {true} [__unist__]
+ *
+ * @typedef {Error & SeenErrorFields} SeenError
  */
 
 import nodeAssert from 'node:assert'
@@ -85,10 +90,11 @@ export function wrap(fn) {
     try {
       fn(node, parent)
     } catch (error) {
-      if (!own.call(error, ID)) {
-        error[ID] = true
-        error.message += ': `' + view(node) + '`'
-        if (parent) error.message += ' in `' + view(parent) + '`'
+      const exception = /** @type {SeenError} */ (error)
+      if (!own.call(exception, ID)) {
+        exception[ID] = true
+        exception.message += ': `' + view(node) + '`'
+        if (parent) exception.message += ' in `' + view(parent) + '`'
       }
 
       throw error
