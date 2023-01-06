@@ -22,6 +22,7 @@
     *   [`literal(node[, parent])`](#literalnode-parent)
     *   [`_void(node[, parent])`](#_voidnode-parent)
     *   [`wrap(fn)`](#wrapfn)
+    *   [`AssertionError`](#assertionerror)
 *   [Extensions](#extensions)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
@@ -45,7 +46,7 @@ do the same but for mdast, hast, and nlcst nodes, respectively.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install unist-util-assert
@@ -93,41 +94,113 @@ assert({type: 'paragraph', children: ['foo']})
 
 ## API
 
-This package exports the identifiers `assert`, `parent`, `literal`, `_void`,
-and `wrap`.
+This package exports the identifiers [`_void`][void], [`assert`][assert],
+[`literal`][literal], [`parent`][parent], and [`wrap`][wrap].
 There is no default export.
 
 ### `assert(tree[, parent])`
 
 Assert that `tree` is a valid unist [`Node`][node].
 
-If `tree` is a [parent][], all children will be asserted as well.
+If `tree` is a parent, all children will be asserted too.
+
+###### Parameters
+
+*   `tree` (`unknown`)
+    — thing to assert
+*   `parent` ([`Parent`][parent-node], optional)
+    — optional, valid parent
+
+###### Returns
+
+Nothing.
 
 ###### Throws
 
-When `node`, or one of its children, is not a valid node.
+When `tree` (or its descendants) is not a node.
 
 ### `parent(tree[, parent])`
 
-Assert that `tree` is a valid unist [`Parent`][parent].
+Assert that `tree` is a valid unist [`Parent`][parent-node].
 
-All children will be asserted as well.
+All children will be asserted too.
+
+###### Parameters
+
+*   `tree` (`unknown`)
+    — thing to assert
+*   `parent` ([`Parent`][parent-node], optional)
+    — optional, valid parent
+
+###### Returns
+
+Nothing.
+
+###### Throws
+
+When `tree` is not a parent or its descendants are not nodes.
 
 ### `literal(node[, parent])`
 
-Assert that `node` is a valid unist [`Literal`][literal].
+Assert that `node` is a valid unist [`Literal`][literal-node].
+
+###### Parameters
+
+*   `tree` (`unknown`)
+    — thing to assert
+*   `parent` ([`Parent`][parent-node], optional)
+    — optional, valid parent
+
+###### Returns
+
+Nothing.
+
+###### Throws
+
+When `node` is not a literal.
 
 ### `_void(node[, parent])`
 
-Assert that `node` is a valid unist [`Node`][node], but neither
-[`Parent`][parent] nor
-[`Literal`][literal].
+Assert that `node` is a valid void node.
+
+###### Parameters
+
+*   `tree` (`unknown`)
+    — thing to assert
+*   `parent` ([`Parent`][parent-node], optional)
+    — optional, valid parent
+
+###### Returns
+
+Nothing.
+
+###### Throws
+
+When `node` is not a node, a parent, or a literal.
 
 ### `wrap(fn)`
 
-Wraps `fn` (which is passed a node, and an optional parent node), so that any
-errors thrown inside it will contain information regarding the node (and the
-parent, when given).
+Wrapper that adds the current node (and parent, if available) to error
+messages.
+
+###### Parameters
+
+*   `fn` (`(node?: any, parent?: Parent | null | undefined) => asserts node is Node)`)
+    — custom assertion
+
+###### Returns
+
+Wrapped `fn`.
+
+### `AssertionError`
+
+Assertion error from `node:assert` (TypeScript type).
+
+###### Type
+
+```ts
+type AssertionError = import('node:assert').AssertionError
+```
 
 ## Extensions
 
@@ -141,13 +214,13 @@ message.
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional type `AssertionError`.
+It exports the additional type [`AssertionError`][assertionerror].
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 ## Related
@@ -225,12 +298,24 @@ abide by its terms.
 
 [node]: https://github.com/syntax-tree/unist#node
 
-[parent]: https://github.com/syntax-tree/unist#parent
+[parent-node]: https://github.com/syntax-tree/unist#parent
 
-[literal]: https://github.com/syntax-tree/unist#literal
+[literal-node]: https://github.com/syntax-tree/unist#literal
 
 [mdast-util-assert]: https://github.com/syntax-tree/mdast-util-assert
 
 [hast-util-assert]: https://github.com/syntax-tree/hast-util-assert
 
 [nlcst-test]: https://github.com/syntax-tree/nlcst-test
+
+[assert]: #asserttree-parent
+
+[parent]: #parenttree-parent
+
+[literal]: #literalnode-parent
+
+[void]: #_voidnode-parent
+
+[wrap]: #wrapfn
+
+[assertionerror]: #assertionerror
