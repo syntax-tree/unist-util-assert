@@ -26,19 +26,16 @@
   "type": "module",
   "main": "index.js",
   "browser": {
-    "./inspect.js": "./inspect.browser.js"
+    "./lib/inspect.js": "./lib/inspect.browser.js"
   },
   "react-native": {
-    "./inspect.js": "./inspect.browser.js"
+    "./lib/inspect.js": "./lib/inspect.browser.js"
   },
   "types": "index.d.ts",
   "files": [
+    "lib/",
     "index.d.ts",
-    "index.js",
-    "inspect.d.ts",
-    "inspect.js",
-    "inspect.browser.d.ts",
-    "inspect.browser.js"
+    "index.js"
   ],
   "dependencies": {
     "@types/unist": "^2.0.0"
@@ -85,7 +82,7 @@
     "ignoreCatch": true,
     "#": "Couple of needed any’s",
     "ignoreFiles": [
-      "index.d.ts"
+      "lib/index.d.ts"
     ]
   }
 }

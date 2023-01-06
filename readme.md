@@ -141,7 +141,7 @@ message.
 ## Types
 
 This package is fully typed with [TypeScript][].
-It does not export additional types.
+It exports the additional type `AssertionError`.
 
 ## Compatibility
 

@@ -1,5 +1,5 @@
 import {expectType, expectNotType} from 'tsd'
-import {type Node, type Parent} from 'unist'
+import type {Node, Parent} from 'unist'
 import {assert, parent} from './index.js'
 
 const emptyNode = {type: 'a'}
