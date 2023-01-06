@@ -19,46 +19,68 @@ import {inspect} from './inspect.js'
 const own = {}.hasOwnProperty
 
 /**
- * Assert that `node` is a valid unist node.
+ * Assert that `tree` is a valid unist node.
+ *
  * If `node` is a parent, all children will be asserted too.
  *
- * @param {unknown} [node]
- * @param {Parent} [parent]
- * @returns {asserts node is Node}
+ * @param {unknown} [tree]
+ *   Thing to assert.
+ * @param {Parent | null | undefined} [parent]
+ *   Optional, valid parent.
+ * @returns {asserts tree is Node}
+ *   Whether `tree` (and its descendants) are valid nodes.
+ * @throws {AssertionError}
+ *   When `tree` (or its descendants) is not a node.
  */
-export function assert(node, parent) {
-  return wrap(assertNode)(node, parent)
+export function assert(tree, parent) {
+  return wrap(assertNode)(tree, parent)
 }
 
 /**
- * Assert that `node` is a valid unist parent.
+ * Assert that `tree` is a valid unist parent.
+ *
  * All children will be asserted too.
  *
- * @param {unknown} [node]
- * @param {Parent} [parent]
- * @returns {asserts node is Parent}
+ * @param {unknown} [tree]
+ *   Thing to assert.
+ * @param {Parent | null | undefined} [parent]
+ *   Optional, valid parent.
+ * @returns {asserts tree is Parent}
+ *   Whether `tree` is a parent and its descendants are valid nodes.
+ * @throws {AssertionError}
+ *   When `tree` is not a parent or its descendants are not nodes.
  */
-export function parent(node, parent) {
-  return wrap(assertParent)(node, parent)
+export function parent(tree, parent) {
+  return wrap(assertParent)(tree, parent)
 }
 
 /**
  * Assert that `node` is a valid unist literal.
  *
  * @param {unknown} [node]
- * @param {Parent} [parent]
+ *   Thing to assert.
+ * @param {Parent | null | undefined} [parent]
+ *   Optional, valid parent.
  * @returns {asserts node is Literal}
+ *   Whether `node` is a literal.
+ * @throws {AssertionError}
+ *   When `node` is not a literal.
  */
 export function literal(node, parent) {
   return wrap(assertLiteral)(node, parent)
 }
 
 /**
- * Assert that `node` is a valid unist node, but neither parent nor literal.
+ * Assert that `node` is a valid void node.
  *
  * @param {unknown} [node]
- * @param {Parent} [parent]
+ *   Thing to assert.
+ * @param {Parent | null | undefined} [parent]
+ *   Optional, valid parent.
  * @returns {asserts node is _Void}
+ *   Whether `node` is a node but neither parent nor literal.
+ * @throws {AssertionError}
+ *   When `node` is not a node, a parent, or a literal.
  */
 export function _void(node, parent) {
   return wrap(assertVoid)(node, parent)
@@ -74,17 +96,25 @@ const defined = new Set(['type', 'value', 'children', 'position'])
  * Wrapper that adds the current node (and parent, if available) to error
  * messages.
  *
- * @param {(node?: any, parent?: Parent|null) => asserts node is Node} fn
- * @returns {(node?: any, parent?: Parent|null) => asserts node is Node}
+ * @template {Node} T
+ *   Node type.
+ * @param {(node?: any, parent?: Parent | null | undefined) => asserts node is T} fn
+ *   Custom assertion.
+ * @returns {(node?: any, parent?: Parent | null | undefined) => asserts node is T}
+ *   Assertion.
  */
 export function wrap(fn) {
   return wrapped
 
   /**
    * @param {unknown} node
-   * @param {Parent|null|undefined} [parent]
+   *   Thing to check.
+   * @param {Parent | null | undefined} [parent]
+   *   Optional, valid parent.
    * @throws {AssertionError}
+   *   Whether `node` is a node but neither parent nor literal.
    * @returns {void}
+   *   Nothing.
    */
   function wrapped(node, parent) {
     try {
@@ -103,10 +133,16 @@ export function wrap(fn) {
 }
 
 /**
- * Assert.
+ * Assert that `node` is a valid unist parent.
+ *
+ * All children will be asserted too.
  *
  * @param {unknown} node
+ *   Thing to assert.
  * @returns {asserts node is Node}
+ *   Whether `node` (and its descendants) are valid nodes.
+ * @throws {AssertionError}
+ *   When `node` (or its descendants) is not a node.
  */
 function assertNode(node) {
   let index = -1
@@ -173,7 +209,9 @@ function assertNode(node) {
  * same (deep) value.
  *
  * @param {string} key
+ *   Name of field.
  * @param {unknown} value
+ *   Value of field.
  */
 function vanilla(key, value) {
   try {
@@ -185,10 +223,13 @@ function vanilla(key, value) {
 
 /**
  * Stringify a value to inspect it.
+ *
  * Tries `JSON.stringify()`, and if that fails uses `String()` instead.
  *
  * @param {unknown} value
+ *  Anything (should be JSON).
  * @returns {string}
+ *   User-visible preresentation.
  */
 function view(value) {
   try {
@@ -200,10 +241,16 @@ function view(value) {
 }
 
 /**
- * Assert `node` is a parent node.
+ * Assert that `node` is a valid unist parent.
+ *
+ * All children will be asserted too.
  *
  * @param {Node} node
+ *   Thing to assert.
  * @returns {asserts node is Parent}
+ *   Whether `node` is a parent and its descendants are valid nodes.
+ * @throws {AssertionError}
+ *   When `node` is not a parent or its descendants are not nodes.
  */
 function assertParent(node) {
   assertNode(node)
@@ -217,10 +264,14 @@ function assertParent(node) {
 }
 
 /**
- * Assert `node` is a literal node.
+ * Assert that `node` is a valid unist literal.
  *
- * @param {Node} node
+ * @param {unknown} [node]
+ *   Thing to assert.
  * @returns {asserts node is Literal}
+ *   Whether `node` is a literal.
+ * @throws {AssertionError}
+ *   When `node` is not a literal.
  */
 function assertLiteral(node) {
   assertNode(node)
@@ -234,10 +285,14 @@ function assertLiteral(node) {
 }
 
 /**
- * Assert `node` is a unist node, but neither parent nor literal.
+ * Assert that `node` is a valid void node.
  *
- * @param {Node} node
+ * @param {unknown} [node]
+ *   Thing to assert.
  * @returns {asserts node is _Void}
+ *   Whether `node` is a node but neither parent nor literal.
+ * @throws {AssertionError}
+ *   When `node` is not a node, a parent, or a literal.
  */
 function assertVoid(node) {
   assertNode(node)
@@ -251,19 +306,25 @@ function assertVoid(node) {
 }
 
 /**
- * Assert `position` is a unist position.
+ * Assert that `position` is a unist position.
  *
- * @param {Position} position
+ * @param {unknown} position
+ *   Thing to assert.
  * @returns {asserts position is Position}
+ *   Whether `position` is a unist position.
+ * @throws {AssertionError}
+ *   When `position` is not a position.
  */
 function position(position) {
   if (position !== null && position !== undefined) {
     nodeAssert.ok(
-      position === Object(position),
+      typeof position === 'object' && position === Object(position),
       '`position` should be an object'
     )
 
+    // @ts-expect-error: indexable.
     point(position.start, 'position.start')
+    // @ts-expect-error: indexable.
     point(position.end, 'position.end')
   }
 }
@@ -271,28 +332,35 @@ function position(position) {
 /**
  * Assert `point` is a unist point.
  *
- * @param {Point} point
+ * @param {unknown} point
+ *   Thing to assert.
  * @param {string} label
+ *   Whether `point` is a unist point.
  * @returns {asserts point is Point}
+ *   When `point` is not a point.
  */
 function point(point, label) {
   if (point !== null && point !== undefined) {
     nodeAssert.ok(
-      point === Object(point),
+      typeof point === 'object' && point === Object(point),
       '`' + label + '` should be an object'
     )
 
-    if (point.line !== null && point.line !== undefined) {
+    if ('line' in point && point.line !== null && point.line !== undefined) {
       nodeAssert.ok(
-        'line' in point,
+        typeof point.line === 'number',
         '`' + label + '` should have numeric `line`'
       )
       nodeAssert.ok(point.line >= 1, '`' + label + '.line` should be gte `1`')
     }
 
-    if (point.column !== null && point.column !== undefined) {
+    if (
+      'column' in point &&
+      point.column !== null &&
+      point.column !== undefined
+    ) {
       nodeAssert.ok(
-        'column' in point,
+        typeof point.column === 'number',
         '`' + label + '` should have numeric `column`'
       )
       nodeAssert.ok(

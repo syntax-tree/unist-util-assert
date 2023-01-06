@@ -17,8 +17,8 @@
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`assert(node[, parent])`](#assertnode-parent)
-    *   [`parent(node[, parent])`](#parentnode-parent)
+    *   [`assert(tree[, parent])`](#asserttree-parent)
+    *   [`parent(tree[, parent])`](#parenttree-parent)
     *   [`literal(node[, parent])`](#literalnode-parent)
     *   [`_void(node[, parent])`](#_voidnode-parent)
     *   [`wrap(fn)`](#wrapfn)
@@ -97,18 +97,20 @@ This package exports the identifiers `assert`, `parent`, `literal`, `_void`,
 and `wrap`.
 There is no default export.
 
-### `assert(node[, parent])`
+### `assert(tree[, parent])`
 
-Assert that `node` is a valid unist [`Node`][node].
+Assert that `tree` is a valid unist [`Node`][node].
+
 If `tree` is a [parent][], all children will be asserted as well.
 
 ###### Throws
 
 When `node`, or one of its children, is not a valid node.
 
-### `parent(node[, parent])`
+### `parent(tree[, parent])`
 
-Assert that `node` is a valid unist [`Parent`][parent].
+Assert that `tree` is a valid unist [`Parent`][parent].
+
 All children will be asserted as well.
 
 ### `literal(node[, parent])`
