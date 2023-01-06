@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('children', (t) => {
-  t.throws(
+test('children', () => {
+  nodeAssert.throws(
     () => {
       assert({type: 'foo', children: {alpha: 'bravo'}})
     },
@@ -10,7 +11,7 @@ test('children', (t) => {
     'should throw if given a non-node child in children'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 'foo', children: ['one']})
     },
@@ -18,11 +19,11 @@ test('children', (t) => {
     'should throw if given a non-node child in children'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'parent', children: [{type: 'text', value: 'alpha'}]})
   }, 'should not throw on vald children')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({
         type: 'foo',
@@ -37,6 +38,4 @@ test('children', (t) => {
     /node should be an object: `'one'` in `{ type: 'bar', children: \[ 'one' ] }`$/,
     'should throw on invalid descendants'
   )
-
-  t.end()
 })

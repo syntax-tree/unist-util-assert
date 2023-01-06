@@ -1,8 +1,9 @@
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {literal} from '../index.js'
 
-test('literal()', (t) => {
-  t.throws(
+test('literal()', () => {
+  assert.throws(
     () => {
       literal({})
     },
@@ -10,7 +11,7 @@ test('literal()', (t) => {
     'should throw the same errors as `assert()`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       literal({type: 'strong', children: []})
     },
@@ -18,7 +19,7 @@ test('literal()', (t) => {
     'should throw if the given node has `children`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       literal({type: 'break'})
     },
@@ -26,9 +27,7 @@ test('literal()', (t) => {
     'should throw if the given node has no `value`'
   )
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     literal({type: 'text', value: 'foo'})
   }, 'should not throw on valid text nodes')
-
-  t.end()
 })

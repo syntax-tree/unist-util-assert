@@ -1,8 +1,9 @@
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {parent} from '../index.js'
 
-test('parent()', (t) => {
-  t.throws(
+test('parent()', () => {
+  assert.throws(
     () => {
       parent({})
     },
@@ -10,7 +11,7 @@ test('parent()', (t) => {
     'should throw the same errors as `assert()`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       parent({type: 'text', value: 'foo'})
     },
@@ -18,7 +19,7 @@ test('parent()', (t) => {
     'should throw if the given node has a `value`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       parent({type: 'break'})
     },
@@ -26,9 +27,7 @@ test('parent()', (t) => {
     'should throw if the given node has `children`'
   )
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     parent({type: 'strong', children: []})
   }, 'should not throw on valid void nodes')
-
-  t.end()
 })

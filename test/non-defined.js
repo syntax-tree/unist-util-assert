@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('non-defined', (t) => {
-  t.doesNotThrow(() => {
+test('non-defined', () => {
+  nodeAssert.doesNotThrow(() => {
     assert({
       type: 'element',
       properties: {
@@ -17,7 +18,7 @@ test('non-defined', (t) => {
     })
   }, 'should not throw if non-defined properties are found')
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({
         type: 'break',
@@ -27,6 +28,4 @@ test('non-defined', (t) => {
     /non-specced property `data` should be JSON: `{ type: 'break', data: { foo: \[Function: Function] } }`$/,
     'should throw if non-defined properties are not serialisable'
   )
-
-  t.end()
 })

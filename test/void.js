@@ -1,8 +1,9 @@
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {_void} from '../index.js'
 
-test('_void()', (t) => {
-  t.throws(
+test('_void()', () => {
+  assert.throws(
     () => {
       _void({})
     },
@@ -10,7 +11,7 @@ test('_void()', (t) => {
     'should throw the same errors as `assert()`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       _void({type: 'text', value: 'foo'})
     },
@@ -18,7 +19,7 @@ test('_void()', (t) => {
     'should throw if the given node has a `value`'
   )
 
-  t.throws(
+  assert.throws(
     () => {
       _void({type: 'strong', children: []})
     },
@@ -26,9 +27,7 @@ test('_void()', (t) => {
     'should throw if the given node has `children`'
   )
 
-  t.doesNotThrow(() => {
+  assert.doesNotThrow(() => {
     _void({type: 'break'})
   }, 'should not throw on valid void nodes')
-
-  t.end()
 })

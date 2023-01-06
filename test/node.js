@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('node', (t) => {
-  t.throws(
+test('node', () => {
+  nodeAssert.throws(
     () => {
       assert()
     },
@@ -10,7 +11,7 @@ test('node', (t) => {
     'should throw if not given a node (#1)'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert(null)
     },
@@ -18,7 +19,7 @@ test('node', (t) => {
     'should throw if not given a node (#2)'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert('foo')
     },
@@ -26,13 +27,11 @@ test('node', (t) => {
     'should throw if given a non-node (#1)'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert(6)
     },
     /node should be an object: `6`$/,
     'should throw if not given a non-node (#2)'
   )
-
-  t.end()
 })

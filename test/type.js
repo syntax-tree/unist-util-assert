@@ -1,8 +1,9 @@
-import test from 'tape'
+import nodeAssert from 'node:assert/strict'
+import test from 'node:test'
 import {assert} from '../index.js'
 
-test('type', (t) => {
-  t.throws(
+test('type', () => {
+  nodeAssert.throws(
     () => {
       assert({})
     },
@@ -10,7 +11,7 @@ test('type', (t) => {
     'should throw if not given a `type` (#1)'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({value: 'foo'})
     },
@@ -18,7 +19,7 @@ test('type', (t) => {
     'should throw if not given a type (#2)'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: 1})
     },
@@ -26,7 +27,7 @@ test('type', (t) => {
     'should throw if not given a non-string type'
   )
 
-  t.throws(
+  nodeAssert.throws(
     () => {
       assert({type: ''})
     },
@@ -34,9 +35,7 @@ test('type', (t) => {
     'should throw if given an empty string type'
   )
 
-  t.doesNotThrow(() => {
+  nodeAssert.doesNotThrow(() => {
     assert({type: 'foo'})
   }, 'should not throw if given a non-empty type string')
-
-  t.end()
 })
