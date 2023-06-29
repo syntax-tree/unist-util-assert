@@ -46,7 +46,7 @@ do the same but for mdast, hast, and nlcst nodes, respectively.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 14.14+ and 16.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install unist-util-assert
@@ -218,10 +218,13 @@ It exports the additional type [`AssertionError`][assertionerror].
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 14.14+ and 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `unist-util-assert@^3`,
+compatible with Node.js 12.
 
 ## Related
 
@@ -260,9 +263,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/unist-util-assert
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/unist-util-assert.svg
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=unist-util-assert
 
-[size]: https://bundlephobia.com/result?p=unist-util-assert
+[size]: https://bundlejs.com/?q=unist-util-assert
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
