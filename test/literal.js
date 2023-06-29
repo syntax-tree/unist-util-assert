@@ -2,32 +2,34 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {literal} from '../index.js'
 
-test('literal()', () => {
-  assert.throws(
-    () => {
+test('literal()', async function (t) {
+  await t.test('should throw the same errors as `assert()`', async function () {
+    assert.throws(function () {
       literal({})
-    },
-    /node should have a type: `{}`$/,
-    'should throw the same errors as `assert()`'
+    }, /node should have a type: `{}`$/)
+  })
+
+  await t.test(
+    'should throw if the given node has `children`',
+    async function () {
+      assert.throws(function () {
+        literal({type: 'strong', children: []})
+      }, /literal should not have `children`: `{ type: 'strong', children: \[] }`$/)
+    }
   )
 
-  assert.throws(
-    () => {
-      literal({type: 'strong', children: []})
-    },
-    /literal should not have `children`: `{ type: 'strong', children: \[] }`$/,
-    'should throw if the given node has `children`'
+  await t.test(
+    'should throw if the given node has no `value`',
+    async function () {
+      assert.throws(function () {
+        literal({type: 'break'})
+      }, /literal should have `value`: `{ type: 'break' }`$/)
+    }
   )
 
-  assert.throws(
-    () => {
-      literal({type: 'break'})
-    },
-    /literal should have `value`: `{ type: 'break' }`$/,
-    'should throw if the given node has no `value`'
-  )
-
-  assert.doesNotThrow(() => {
-    literal({type: 'text', value: 'foo'})
-  }, 'should not throw on valid text nodes')
+  await t.test('should not throw on valid text nodes', async function () {
+    assert.doesNotThrow(function () {
+      literal({type: 'text', value: 'foo'})
+    })
+  })
 })

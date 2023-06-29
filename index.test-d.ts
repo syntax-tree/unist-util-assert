@@ -1,4 +1,4 @@
-import {expectType, expectNotType} from 'tsd'
+import {expectNotType, expectType} from 'tsd'
 import type {Node, Parent} from 'unist'
 import {assert, parent} from './index.js'
 

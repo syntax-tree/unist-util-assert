@@ -69,7 +69,7 @@ In browsers with [`esm.sh`][esmsh]:
 ## Use
 
 ```js
-import {assert, parent, _void} from 'unist-util-assert'
+import {_void, assert, parent} from 'unist-util-assert'
 
 assert({type: 'root', children: []})
 assert({type: 'break'})

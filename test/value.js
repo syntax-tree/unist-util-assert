@@ -2,28 +2,43 @@ import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
 import {assert} from '../index.js'
 
-test('value', () => {
-  nodeAssert.throws(
-    () => {
+test('value', async function (t) {
+  await t.test('should throw if given a non-string `value`', async function () {
+    nodeAssert.throws(function () {
       assert({type: 'foo', value: 1})
-    },
-    /`value` should be a string: `{ type: 'foo', value: 1 }`$/,
-    'should throw if given a non-string `value`'
+    }, /`value` should be a string: `{ type: 'foo', value: 1 }`$/)
+  })
+
+  await t.test(
+    'should not throw if given an empty string `value`',
+    async function () {
+      nodeAssert.doesNotThrow(function () {
+        assert({type: 'foo', value: ''})
+      })
+    }
   )
 
-  nodeAssert.doesNotThrow(() => {
-    assert({type: 'foo', value: ''})
-  }, 'should not throw if given an empty string `value`')
+  await t.test(
+    'should not throw if given an string `value`',
+    async function () {
+      nodeAssert.doesNotThrow(function () {
+        assert({type: 'foo', value: 'foo'})
+      })
+    }
+  )
 
-  nodeAssert.doesNotThrow(() => {
-    assert({type: 'foo', value: 'foo'})
-  }, 'should not throw if given an string `value`')
+  await t.test(
+    'should not throw if given an undefined `value`',
+    async function () {
+      nodeAssert.doesNotThrow(function () {
+        assert({type: 'foo', value: undefined})
+      })
+    }
+  )
 
-  nodeAssert.doesNotThrow(() => {
-    assert({type: 'foo', value: undefined})
-  }, 'should not throw if given an undefined `value`')
-
-  nodeAssert.doesNotThrow(() => {
-    assert({type: 'foo', value: null})
-  }, 'should not throw if given an null `value`')
+  await t.test('should not throw if given an null `value`', async function () {
+    nodeAssert.doesNotThrow(function () {
+      assert({type: 'foo', value: null})
+    })
+  })
 })

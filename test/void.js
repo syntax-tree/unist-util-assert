@@ -2,32 +2,34 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {_void} from '../index.js'
 
-test('_void()', () => {
-  assert.throws(
-    () => {
+test('_void()', async function (t) {
+  await t.test('should throw the same errors as `assert()`', async function () {
+    assert.throws(function () {
       _void({})
-    },
-    /node should have a type: `{}`$/,
-    'should throw the same errors as `assert()`'
+    }, /node should have a type: `{}`$/)
+  })
+
+  await t.test(
+    'should throw if the given node has a `value`',
+    async function () {
+      assert.throws(function () {
+        _void({type: 'text', value: 'foo'})
+      }, /void should not have `value`: `{ type: 'text', value: 'foo' }`$/)
+    }
   )
 
-  assert.throws(
-    () => {
-      _void({type: 'text', value: 'foo'})
-    },
-    /void should not have `value`: `{ type: 'text', value: 'foo' }`$/,
-    'should throw if the given node has a `value`'
+  await t.test(
+    'should throw if the given node has `children`',
+    async function () {
+      assert.throws(function () {
+        _void({type: 'strong', children: []})
+      }, /void should not have `children`: `{ type: 'strong', children: \[] }`$/)
+    }
   )
 
-  assert.throws(
-    () => {
-      _void({type: 'strong', children: []})
-    },
-    /void should not have `children`: `{ type: 'strong', children: \[] }`$/,
-    'should throw if the given node has `children`'
-  )
-
-  assert.doesNotThrow(() => {
-    _void({type: 'break'})
-  }, 'should not throw on valid void nodes')
+  await t.test('should not throw on valid void nodes', async function () {
+    assert.doesNotThrow(function () {
+      _void({type: 'break'})
+    })
+  })
 })
