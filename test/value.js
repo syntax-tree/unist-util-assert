@@ -1,6 +1,6 @@
 import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
-import {assert} from '../index.js'
+import {assert} from 'unist-util-assert'
 
 test('value', async function (t) {
   await t.test('should throw if given a non-string `value`', async function () {

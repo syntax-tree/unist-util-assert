@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {_void} from '../index.js'
+import {_void} from 'unist-util-assert'
 
 test('_void()', async function (t) {
   await t.test('should throw the same errors as `assert()`', async function () {

@@ -24,14 +24,13 @@
   ],
   "sideEffects": false,
   "type": "module",
-  "main": "index.js",
-  "browser": {
-    "./lib/inspect.js": "./lib/inspect.browser.js"
+  "exports": {
+    ".": "./index.js",
+    "./do-not-use-conditional-inspect": {
+      "node": "./lib/inspect.node.js",
+      "default": "./lib/inspect.default.js"
+    }
   },
-  "react-native": {
-    "./lib/inspect.js": "./lib/inspect.browser.js"
-  },
-  "types": "index.d.ts",
   "files": [
     "lib/",
     "index.d.ts",

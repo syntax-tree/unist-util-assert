@@ -1,6 +1,6 @@
 import nodeAssert from 'node:assert/strict'
 import test from 'node:test'
-import {assert} from '../index.js'
+import {assert} from 'unist-util-assert'
 
 test('non-defined', async function (t) {
   await t.test(
